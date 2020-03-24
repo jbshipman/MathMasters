@@ -1,5 +1,6 @@
 const usersURL = 'http://127.0.0.1:3000/users';
 const questionsURL = 'http://127.0.0.1:3000/questions';
+const testResultsURL = 'http://127.0.0.1:3000/test_results';
 const mainDiv = document.getElementById('main');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -78,16 +79,17 @@ function renderUserProfile(user) {
   mainDiv.append(easyTest);
   mainDiv.append(hardTest);
 
-  // Display Test Results
+  // Create Test Results Elements
   const userResultDiv = document.createElement('div');
+  userResultDiv.setAttribute('id', 'user-result-div');
   mainDiv.append(userResultDiv);
   const resultsText = document.createElement('p');
   resultsText.innerText = 'Your test results and scores:';
   userResultDiv.append(resultsText);
-  displayResults(user);
+  fetchTestResults(user);
   // TODO: Option to retake certain test?
 
-  // Display Questions for Review
+  // Create Questions for Review Elements
   const userReviewDiv = document.createElement('div');
   mainDiv.append(userReviewDiv);
   const reviewText = document.createElement('p');
@@ -96,7 +98,31 @@ function renderUserProfile(user) {
   // TODO: Display reviewed questions
 }
 
-function displayResults(user) {
-  console.log(user);
-  
+function fetchTestResults(user) {
+  return fetch(testResultsURL)
+    .then((response) => response.json())
+    .then((json) => {
+      selectUserResults(user, json);
+    });
+}
+
+// Selects Individual User Results from JSON Fetch
+function selectUserResults(user, results) {
+  user_results = [];
+  results.forEach((result) => {
+    if (result.user_id === user.id) user_results.push(result);
+    displayResults(user_results);
+  });
+}
+
+// Displays Individual User Test Results
+function displayResults(user_results) {
+  const testUl = document.createElement('ul');
+  const userResultDiv = document.getElementById('user-result-div');
+  userResultDiv.append(testUl);
+  user_results.forEach((result) => {
+    const resultLi = document.createElement('li');
+    resultLi.innerText = `Test Session ${result.id} - Score: ${result.test_score}`;
+    testUl.appendChild(resultLi);
+  });
 }

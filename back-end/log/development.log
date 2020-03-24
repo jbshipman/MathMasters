@@ -1292,3 +1292,104 @@ Processing by TestResultsController#index as HTML
 Completed 200 OK in 24ms (Views: 13.8ms | ActiveRecord: 1.6ms | Allocations: 6057)
 
 
+Started GET "/users" for 127.0.0.1 at 2020-03-24 14:36:41 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 15ms (Views: 7.8ms | ActiveRecord: 1.8ms | Allocations: 6108)
+
+
+Started GET "/test_results" for 127.0.0.1 at 2020-03-24 14:36:43 -0500
+Processing by TestResultsController#index as */*
+  [1m[36mTestResult Load (0.5ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+Completed 200 OK in 15ms (Views: 10.1ms | ActiveRecord: 1.5ms | Allocations: 5181)
+
+
+Started GET "/users" for 127.0.0.1 at 2020-03-24 14:44:40 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 6ms (Views: 5.0ms | ActiveRecord: 0.3ms | Allocations: 1609)
+
+
+Started GET "/test_results" for 127.0.0.1 at 2020-03-24 14:44:41 -0500
+Processing by TestResultsController#index as */*
+  [1m[36mTestResult Load (0.3ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.3ms | Allocations: 891)
+
+
+Started GET "/users" for 127.0.0.1 at 2020-03-24 14:47:06 -0500
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 13ms (Views: 12.0ms | ActiveRecord: 0.2ms | Allocations: 1593)
+
+
+Started GET "/test_results" for 127.0.0.1 at 2020-03-24 14:47:07 -0500
+Processing by TestResultsController#index as */*
+  [1m[36mTestResult Load (0.2ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+Completed 200 OK in 3ms (Views: 2.9ms | ActiveRecord: 0.2ms | Allocations: 874)
+
+
+Started GET "/users" for 127.0.0.1 at 2020-03-24 14:47:16 -0500
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 5ms (Views: 4.4ms | ActiveRecord: 0.1ms | Allocations: 1593)
+
+
+Started GET "/test_results" for 127.0.0.1 at 2020-03-24 14:47:17 -0500
+Processing by TestResultsController#index as */*
+  [1m[36mTestResult Load (0.6ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+Completed 200 OK in 3ms (Views: 2.4ms | ActiveRecord: 0.6ms | Allocations: 874)
+
+
+Started GET "/users" for 127.0.0.1 at 2020-03-24 14:54:13 -0500
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 13ms (Views: 10.2ms | ActiveRecord: 0.4ms | Allocations: 1609)
+
+
+Started GET "/test_results" for 127.0.0.1 at 2020-03-24 14:54:14 -0500
+Processing by TestResultsController#index as */*
+  [1m[36mTestResult Load (0.2ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+Completed 200 OK in 9ms (Views: 8.0ms | ActiveRecord: 0.2ms | Allocations: 891)
+
+
+Started GET "/users" for 127.0.0.1 at 2020-03-24 14:54:59 -0500
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 5ms (Views: 4.2ms | ActiveRecord: 0.2ms | Allocations: 1593)
+
+
+Started GET "/test_results" for 127.0.0.1 at 2020-03-24 14:55:00 -0500
+Processing by TestResultsController#index as */*
+  [1m[36mTestResult Load (0.3ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+Completed 200 OK in 4ms (Views: 3.5ms | ActiveRecord: 0.3ms | Allocations: 874)
+
+
+Started GET "/users" for 127.0.0.1 at 2020-03-24 14:55:05 -0500
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 3ms (Views: 2.4ms | ActiveRecord: 0.1ms | Allocations: 1593)
+
+
+Started GET "/test_results" for 127.0.0.1 at 2020-03-24 14:55:06 -0500
+Processing by TestResultsController#index as */*
+  [1m[36mTestResult Load (0.3ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+Completed 200 OK in 4ms (Views: 3.1ms | ActiveRecord: 0.3ms | Allocations: 874)
+
+
