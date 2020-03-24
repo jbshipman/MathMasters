@@ -46,18 +46,21 @@ function userLogin(users) {
 // Display User Profile
 function renderUserProfile(user) {
   console.log(`${user.name}, ${user.id}`);
-  const mainDiv = document.getElementById('main');
+  const mainDiv = el('main');
+  const profileDiv = document.createElement('div');
+  profileDiv.setAttribute('id', 'profile-header-container');
   mainDiv.innerHTML = '';
+  mainDiv.append(profileDiv);
 
   // User Profile Header
   userHeader = document.createElement('h2');
   userHeader.innerText = `Nice to see you again, ${user.name}!`;
-  mainDiv.append(userHeader);
+  profileDiv.append(userHeader);
 
   // Take New Test
   newTestInstructions = document.createElement('p');
   newTestInstructions.innerText = 'Would you like to take a new test?';
-  mainDiv.append(newTestInstructions);
+  profileDiv.append(newTestInstructions);
 
   // Test Button - Easy
   const easyTest = document.createElement('button');
@@ -66,7 +69,61 @@ function renderUserProfile(user) {
     e.preventDefault();
     console.log('Clicked easy test button');
     // TODO: Easy Test Function
+    getQuestions();
   });
+    
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  function getQuestions() {
+    fetch(questionsURL)
+      .then(res => res.json())
+      .then(data => renderTestQuestions(data))
+
+  };
+  function renderTestQuestions(data) {
+
+    const easy = data.filter(filterEasyTests);
+
+    console.log(`renderTestQuestions function:\n`, easy);
+    
+    // // const hard = data.filter(filterHardTests);
+    
+    /* create the div that will hold the ol */
+    const testsDiv = document.createElement('div');
+    testsDiv.setAttribute('id', 'test_questions_container');
+    testsDiv.innerText = `Easy test has been selected`;
+  
+    /* create the ol */
+    /* add to testsDiv */
+    const testsOl = document.createElement('ol');
+    testsOl.setAttribute('id', 'test_questions_list');
+    testsDiv.append(testsOl);
+  
+    /* loop through data */
+    /* to add questions to list */
+    easy.forEach(question => {
+      const questionLi = document.createElement('li');
+      questionLi.setAttribute('id', question.id);
+      questionLi.setAttribute('class', 'list-group-item');
+      questionLi.innerText = question.text;
+      testsOl.appendChild(questionLi);
+    });
+  
+    
+    /* append to the main div */
+    el('main').append(testsDiv);
+  
+  };
+  function filterEasyTests(data) {
+    return data.difficulty == false;
+  };
+  
+  function filterHardTests(data) {
+    return data.difficulty == true;
+  };
+  // ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
 
   // Test Button - Hard
   const hardTest = document.createElement('button');
@@ -76,8 +133,8 @@ function renderUserProfile(user) {
     console.log('Clicked hard test button');
     // TODO: Hard Test Function
   });
-  mainDiv.append(easyTest);
-  mainDiv.append(hardTest);
+  profileDiv.append(easyTest);
+  profileDiv.append(hardTest);
 
   // Create Test Results Elements
   const userResultDiv = document.createElement('div');
@@ -160,3 +217,7 @@ function displayReviewQuestions(questions) {
     reviewUl.append(questionText);
   });
 }
+
+function el(id) {
+  return document.getElementById(id);
+};
