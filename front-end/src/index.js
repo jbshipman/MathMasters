@@ -2,27 +2,43 @@ const usersURL = 'http://127.0.0.1:3000/users';
 const questionsURL = 'http://127.0.0.1:3000/questions';
 
 document.addEventListener('DOMContentLoaded', () => {
-  userLogin();
+  fetchUsers();
 });
 
 // User Login
-function userLogin() {
+function userLogin(users) {
+//   console.log(users);
+
   const mainDiv = document.getElementById('main');
   mainDiv.innerHTML = '';
 
   // Header
   userHeader = document.createElement('h1');
   userHeader.innerText = 'Welcome to Mathmasters!';
-
   mainDiv.append(userHeader);
 
-  fetchUsers();
+  // User Instructions
+  const userInstructions = document.createElement('p');
+  userInstructions.innerText = "Select a user from the list below to login";
+  mainDiv.append(userInstructions);
+
+  // User List
+  const userList = document.createElement('ul');
+
+  mainDiv.append(userList);
+  users.forEach((user) => {
+    const userLi = document.createElement('li');
+    userLi.innerText = user.name;
+    userList.appendChild(userLi);
+  });
+
+
 }
 
 function fetchUsers() {
   return fetch(usersURL)
     .then((response) => response.json())
     .then((json) => {
-      console.log(json);
+      userLogin(json);
     });
 }
