@@ -31,7 +31,7 @@ users = [
   {name:'Robert'},
   {name:'Celeste'},
   {name:'Mother of Dragons'},
-  {name:"John 'I Know Nothing' Sow"},
+  {name:"John 'I Know Nothing' Snow"},
   {name:'Puck'},
   {name:'Oberon'}
 ]
