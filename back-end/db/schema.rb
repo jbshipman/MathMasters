@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_03_23_210145) do
     t.string "option2"
     t.string "option3"
     t.string "answer_key"
-    t.string "difficulty"
+    t.boolean "difficulty"
     t.boolean "review"
     t.string "user_answer"
     t.datetime "created_at", precision: 6, null: false

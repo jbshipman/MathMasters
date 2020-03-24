@@ -18,7 +18,7 @@ function renderTestQuestions(data) {
   const easy = data.filter(filterEasyTests);
   const hard = data.filter(filterHardTests);
   
-  // console.log(hard);
+  console.log(easy);
 
   /* create the div that will hold the ol */
   const testsDiv = document.createElement('div');
@@ -33,7 +33,7 @@ function renderTestQuestions(data) {
 
   /* loop through data */
   /* to add questions to list */
-  hard.forEach(question => {
+  easy.forEach(question => {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
@@ -48,11 +48,11 @@ function renderTestQuestions(data) {
 };
 
 function filterEasyTests(data) {
-  return data.difficulty == 'easy';
+  return data.difficulty == false;
 };
 
 function filterHardTests(data) {
-  return data.difficulty == 'hard';
+  return data.difficulty == true;
 };
 
 
