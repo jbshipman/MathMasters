@@ -98,4 +98,5 @@ function renderUserProfile(user) {
 
 function displayResults(user) {
   console.log(user);
+  
 }
