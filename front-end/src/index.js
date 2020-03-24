@@ -91,6 +91,7 @@ function renderUserProfile(user) {
 
   // Create Reviewed Questions Elements
   const userReviewDiv = document.createElement('div');
+  userReviewDiv.setAttribute('id', 'user-review-div');
   mainDiv.append(userReviewDiv);
   const reviewText = document.createElement('p');
   reviewText.innerText = 'Your marked questions for review:';
@@ -108,25 +109,54 @@ function fetchTestResults(user) {
 
 // Selects Individual User Results from JSON Fetch
 function selectUserResults(user, results) {
-  user_results = [];
+  userResults = [];
   results.forEach((result) => {
-    if (result.user_id === user.id) user_results.push(result);
-    displayResults(user_results);
+    if (result.user_id === user.id) userResults.push(result);
+    displayResults(userResults);
   });
 }
 
 // Displays Individual User Test Results
-function displayResults(user_results) {
+function displayResults(userResults) {
   const testUl = document.createElement('ul');
   const userResultDiv = document.getElementById('user-result-div');
   userResultDiv.append(testUl);
-  user_results.forEach((result) => {
+  userResults.forEach((result) => {
     const resultLi = document.createElement('li');
     resultLi.innerText = `Test Session ${result.id} - Score: ${result.test_score}`;
     testUl.appendChild(resultLi);
   });
 }
 
-function fetchQuestions(user){
-    
+// Fetch Questions from UserQuestions for Individual User
+function fetchQuestions(user) {
+  return fetch(`http://127.0.0.1:3000/users/${user.id}/questions`)
+    .then((response) => response.json())
+    .then((json) => {
+      selectReviewQuestions(json);
+    });
+}
+
+// Select Questions where Review Marked as True
+function selectReviewQuestions(questions) {
+  reviewQuestions = [];
+  questions.forEach((question) => {
+    if (question.review === true) reviewQuestions.push(question);
+  });
+  displayReviewQuestions(reviewQuestions);
+}
+
+// Display Review Questions
+function displayReviewQuestions(questions) {
+  const reviewUl = document.createElement('ul');
+  const userReviewDiv = document.getElementById('user-review-div');
+  userReviewDiv.append(reviewUl);
+  questions.forEach((question) => {
+    const questionLi = document.createElement('li');
+    questionLi.innerText = `Question #${question.id}`;
+    const questionText = document.createElement('p');
+    questionText.innerText = `${question.text}`;
+    reviewUl.appendChild(questionLi);
+    reviewUl.append(questionText);
+  });
 }
