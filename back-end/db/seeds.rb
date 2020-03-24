@@ -12,21 +12,21 @@ User.destroy_all
 
 # Questions
 questions = [
-  {text:'1 + 1', option1:'1', option2:'2', option3:'3', answer_key:'1', difficulty:0, review:0},
-  {text:'4 + 1', option1:'1', option2:'5', option3:'3', answer_key:'5', difficulty:0, review:0},
-  {text:'13 - 14', option1:'1', option2:'2', option3:'-1', answer_key:'-1', difficulty:0, review:0},
-  {text:'-1 - 18', option1:'-17', option2:'-19', option3:'19', answer_key:'-19', difficulty:0, review:0},
-  {text:'3.14 + 0.0015', option1:'3.1415', option2:'2', option3:'3', answer_key:'3.1415', difficulty:0, review:0},
-  {text:'999 + -9999', option1:'9999', option2:'-9000', option3:'3', answer_key:'-9000', difficulty:0, review:0},
-  {text:'-0.123456789 + -0.123456789', option1:'-0.246913578', option2:'0', option3:'0.8676309', answer_key:'-0.246913578', difficulty:1, review:0},
-  {text:'13 + 18 + 20 - 100 + 19', option1:'30', option2:'27', option3:'-30', answer_key:'-30', difficulty:1, review:0},
-  {text:'14 - 15 + 11.3 - 3.11 + 19', option1:'26.19', option2:'27', option3:'-26.13', answer_key:'26.19', difficulty:1, review:0},
-  {text:'0.1 + -15 + 11.3 + 3.11 + 19', option1:'26.19', option2:'18.51', option3:'-26.13', answer_key:'18.51', difficulty:1, review:0},
-  {text:'3 * 3 * 3', option1:'9', option2:'27', option3:'6', answer_key:'27', difficulty:1, review:0},
-  {text:'((3 * 3) + 3) / 3', option1:'9', option2:'3', option3:'4', answer_key:'4', difficulty:1, review:0},
-  {text:'cube root of 8', option1:'9', option2:'2', option3:'4', answer_key:'2', difficulty:1, review:0},
-  {text:'(3 + 4)(3 + 4)', option1:'14', option2:'25', option3:'49', answer_key:'49', difficulty:1, review:0},
-  {text:'(x + y)(x - y)', option1:'x^2 - y^2', option2:'x^2 +2xy + y^2', option3:'-x^2+2xy -y^2', answer_key:'x^2 - y^2', difficulty:1, review:0},
+  {text:'1 + 1', option1:'1', option2:'2', option3:'3', answer_key:'1', difficulty:'easy', review:0},
+  {text:'4 + 1', option1:'1', option2:'5', option3:'3', answer_key:'5', difficulty:'easy', review:0},
+  {text:'13 - 14', option1:'1', option2:'2', option3:'-1', answer_key:'-1', difficulty:'easy', review:0},
+  {text:'-1 - 18', option1:'-17', option2:'-19', option3:'19', answer_key:'-19', difficulty:'easy', review:0},
+  {text:'3.14 + 0.0015', option1:'3.1415', option2:'2', option3:'3', answer_key:'3.1415', difficulty:'easy', review:0},
+  {text:'999 + -9999', option1:'9999', option2:'-9000', option3:'3', answer_key:'-9000', difficulty:'easy', review:0},
+  {text:'-0.123456789 + -0.123456789', option1:'-0.246913578', option2:'0', option3:'0.8676309', answer_key:'-0.246913578', difficulty:'hard', review:0},
+  {text:'13 + 18 + 20 - 100 + 19', option1:'30', option2:'27', option3:'-30', answer_key:'-30', difficulty:'hard', review:0},
+  {text:'14 - 15 + 11.3 - 3.11 + 19', option1:'26.19', option2:'27', option3:'-26.13', answer_key:'26.19', difficulty:'hard', review:0},
+  {text:'0.1 + -15 + 11.3 + 3.11 + 19', option1:'26.19', option2:'18.51', option3:'-26.13', answer_key:'18.51', difficulty:'hard', review:0},
+  {text:'3 * 3 * 3', option1:'9', option2:'27', option3:'6', answer_key:'27', difficulty:'hard', review:0},
+  {text:'((3 * 3) + 3) / 3', option1:'9', option2:'3', option3:'4', answer_key:'4', difficulty:'hard', review:0},
+  {text:'cube root of 8', option1:'9', option2:'2', option3:'4', answer_key:'2', difficulty:'hard', review:0},
+  {text:'(3 + 4)(3 + 4)', option1:'14', option2:'25', option3:'49', answer_key:'49', difficulty:'hard', review:0},
+  {text:'(x + y)(x - y)', option1:'x^2 - y^2', option2:'x^2 +2xy + y^2', option3:'-x^2+2xy -y^2', answer_key:'x^2 - y^2', difficulty:'hard', review:0},
 ]
 questions.each {|question| Question.create(question)}
 

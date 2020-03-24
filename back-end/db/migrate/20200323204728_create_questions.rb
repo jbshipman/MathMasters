@@ -6,7 +6,7 @@ class CreateQuestions < ActiveRecord::Migration[6.0]
       t.string :option2
       t.string :option3
       t.string :answer_key
-      t.boolean :difficulty
+      t.string :difficulty
       t.boolean :review
       t.string :user_answer
 
