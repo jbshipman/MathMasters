@@ -11,4 +11,9 @@ class UsersController < ApplicationController
         render json: user
     end
 
+    def user_questions
+        user = User.find_by(id: params[:id])
+        render json: user.questions
+    end
+
 end

@@ -95,7 +95,7 @@ function renderUserProfile(user) {
   const reviewText = document.createElement('p');
   reviewText.innerText = 'Your marked questions for review:';
   userReviewDiv.append(reviewText);
-  // TODO: Display reviewed questions
+  fetchQuestions(user);
 }
 
 function fetchTestResults(user) {
@@ -125,4 +125,8 @@ function displayResults(user_results) {
     resultLi.innerText = `Test Session ${result.id} - Score: ${result.test_score}`;
     testUl.appendChild(resultLi);
   });
+}
+
+function fetchQuestions(user){
+    
 }
