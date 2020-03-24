@@ -1,15 +1,21 @@
 const usersURL = 'http://127.0.0.1:3000/users';
 const questionsURL = 'http://127.0.0.1:3000/questions';
+const mainDiv = document.getElementById('main');
 
 document.addEventListener('DOMContentLoaded', () => {
   fetchUsers();
 });
 
+function fetchUsers() {
+  return fetch(usersURL)
+    .then((response) => response.json())
+    .then((json) => {
+      userLogin(json);
+    });
+}
+
 // User Login
 function userLogin(users) {
-//   console.log(users);
-
-  const mainDiv = document.getElementById('main');
   mainDiv.innerHTML = '';
 
   // Header
@@ -37,10 +43,21 @@ function userLogin(users) {
   });
 }
 
-function fetchUsers() {
-  return fetch(usersURL)
-    .then((response) => response.json())
-    .then((json) => {
-      userLogin(json);
-    });
+function renderUserProfile(user) {
+  console.log(`${user.name}, ${user.id}`);
+  const mainDiv = document.getElementById('main');
+  mainDiv.innerHTML = '';
+
+  // User Profile Header
+  userHeader = document.createElement('h2');
+  userHeader.innerText = `Nice to see you again, ${user.name}!`;
+  mainDiv.append(userHeader);
+
+  // Take New Test
+  newTestInstructions = document.createElement('p');
+  newTestInstructions.innerText = 'Would you like a new test?';
+  mainDiv.append(newTestInstructions);
+  
+
+
 }
