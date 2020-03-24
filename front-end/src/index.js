@@ -26,8 +26,23 @@ function userLogin(users) {
 
   // User Instructions
   const userInstructions = document.createElement('p');
-  userInstructions.innerText = 'Select a user from the list below to login';
+  userInstructions.innerText = "Select existing user from the list below or enter new username in the text area and click 'Submit' to login.";
   mainDiv.append(userInstructions);
+
+  // New User Login Box
+  const newUserTextArea = document.createElement('textarea');
+  newUserTextArea.setAttribute('id', 'textarea');
+  mainDiv.append(newUserTextArea);
+
+  // Submit Button
+  const submitBtn = document.createElement('button');
+  submitBtn.innerText = 'Submit';
+  submitBtn.setAttribute('id', 'submitBtn');
+  submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    createUser();
+  });
+  mainDiv.append(submitBtn);
 
   // User List
   const userList = document.createElement('ul');
@@ -41,6 +56,27 @@ function userLogin(users) {
       renderUserProfile(user);
     });
   });
+}
+
+// Create New User POST
+function createUser() {
+  newUserTextArea = document.getElementById('textarea');
+  const newUser = {
+    method: 'POST',
+    headers:
+          {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+    body: JSON.stringify({
+      name: newUserTextArea.value,
+    }),
+  };
+  fetch('http://127.0.0.1:3000/users', newUser)
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+    });
 }
 
 // Display User Profile
