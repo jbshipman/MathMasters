@@ -1,0 +1,663 @@
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20200323204109)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200323204109"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateTestResults (20200323204337)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "test_results" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "session_id" integer, "test_score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200323204337"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateQuestions (20200323204728)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "text" varchar, "option1" varchar, "option2" varchar, "option3" varchar, "answer_key" varchar, "difficulty" boolean, "review" boolean, "user_answer" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200323204728"]]
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUserQuestions (20200323210145)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "user_questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "question_id" integer, "session" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200323210145"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-03-23 21:12:56.738344"], ["updated_at", "2020-03-23 21:12:56.738344"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Joe"], ["created_at", "2020-03-23 21:14:27.164273"], ["updated_at", "2020-03-23 21:14:27.164273"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.5ms)[0m  [1m[34mSELECT "questions".* FROM "questions" INNER JOIN "user_questions" ON "questions"."id" = "user_questions"."question_id" WHERE "user_questions"."user_id" = ? LIMIT ?[0m  [["user_id", 1], ["LIMIT", 11]]
+  [1m[36mTestResult Load (0.1ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results" WHERE "test_results"."user_id" = ? LIMIT ?[0m  [["user_id", 1], ["LIMIT", 11]]
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.6ms)[0m  [1m[34mSELECT "questions".* FROM "questions" INNER JOIN "user_questions" ON "questions"."id" = "user_questions"."question_id" WHERE "user_questions"."user_id" = ? LIMIT ?[0m  [["user_id", 1], ["LIMIT", 11]]
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Load (0.5ms)[0m  [1m[34mSELECT "questions".* FROM "questions" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mTestResult Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "test_results" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (3.8ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["text", "1+1"], ["option1", "2"], ["option2", "1"], ["option3", "3"], ["answer_key", "2"], ["created_at", "2020-03-24 02:10:20.384621"], ["updated_at", "2020-03-24 02:10:20.384621"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTestResult Load (0.2ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTestResult Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "test_results" WHERE "test_results"."user_id" = ? LIMIT ?[0m  [["user_id", 1], ["LIMIT", 1]]
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUserQuestion Load (0.4ms)[0m  [1m[34mSELECT "user_questions".* FROM "user_questions" WHERE "user_questions"."user_id" = ? LIMIT ?[0m  [["user_id", 1], ["LIMIT", 11]]
+  [1m[36mUserQuestion Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "user_questions" WHERE "user_questions"."user_id" = ? LIMIT ?[0m  [["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Load (0.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUserQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "user_questions" ("user_id", "question_id", "session", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 1], ["question_id", 1], ["session", 1], ["created_at", "2020-03-24 02:18:03.854784"], ["updated_at", "2020-03-24 02:18:03.854784"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUserQuestion Load (0.6ms)[0m  [1m[34mSELECT "user_questions".* FROM "user_questions" WHERE "user_questions"."user_id" = ?[0m  [["user_id", 1]]
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+  [1m[36mQuestion Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" INNER JOIN "user_questions" ON "questions"."id" = "user_questions"."question_id" WHERE "user_questions"."user_id" = ? LIMIT ?[0m  [["user_id", 1], ["LIMIT", 1]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions" INNER JOIN "user_questions" ON "questions"."id" = "user_questions"."question_id" WHERE "user_questions"."user_id" = ?[0m  [["user_id", 1]]
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Load (0.6ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Destroy (0.4ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = ?[0m  [["id", 1]]
+  [1m[35m (2.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.6ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "1 + 1"], ["option1", "1"], ["option2", "2"], ["option3", "3"], ["answer_key", "1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:44:32.129115"], ["updated_at", "2020-03-24 02:44:32.129115"]]
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "4 + 1"], ["option1", "1"], ["option2", "5"], ["option3", "3"], ["answer_key", "5"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:44:32.134982"], ["updated_at", "2020-03-24 02:44:32.134982"]]
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "13 - 14"], ["option1", "1"], ["option2", "2"], ["option3", "-1"], ["answer_key", "-1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:44:32.139923"], ["updated_at", "2020-03-24 02:44:32.139923"]]
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "-1 - 18"], ["option1", "-17"], ["option2", "-19"], ["option3", "19"], ["answer_key", "-19"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:44:32.149338"], ["updated_at", "2020-03-24 02:44:32.149338"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "3.14 + 0.0015"], ["option1", "3.1415"], ["option2", "2"], ["option3", "3"], ["answer_key", "3.1415"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:44:32.152898"], ["updated_at", "2020-03-24 02:44:32.152898"]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "999 + -9999"], ["option1", "9999"], ["option2", "-9000"], ["option3", "3"], ["answer_key", "-9000"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:44:32.157164"], ["updated_at", "2020-03-24 02:44:32.157164"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "-0.123456789 + -0.123456789"], ["option1", "-0.246913578"], ["option2", "0"], ["option3", "0.8676309"], ["answer_key", "-0.246913578"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:44:32.160610"], ["updated_at", "2020-03-24 02:44:32.160610"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "13 + 18 + 20 - 100 + 19"], ["option1", "30"], ["option2", "27"], ["option3", "-30"], ["answer_key", "-30"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:44:32.163798"], ["updated_at", "2020-03-24 02:44:32.163798"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "14 - 15 + 11.3 - 3.11 + 19"], ["option1", "26.19"], ["option2", "27"], ["option3", "-26.13"], ["answer_key", "26.19"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:44:32.167273"], ["updated_at", "2020-03-24 02:44:32.167273"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "0.1 + -15 + 11.3 + 3.11 + 19"], ["option1", "26.19"], ["option2", "18.51"], ["option3", "-26.13"], ["answer_key", "18.51"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:44:32.170414"], ["updated_at", "2020-03-24 02:44:32.170414"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Load (0.6ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Destroy (0.3ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = ?[0m  [["id", 2]]
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Destroy (0.3ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = ?[0m  [["id", 3]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Destroy (0.2ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = ?[0m  [["id", 4]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Destroy (0.2ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = ?[0m  [["id", 5]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Destroy (0.2ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = ?[0m  [["id", 6]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Destroy (0.2ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = ?[0m  [["id", 7]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Destroy (0.2ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = ?[0m  [["id", 8]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Destroy (0.2ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = ?[0m  [["id", 9]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Destroy (0.2ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = ?[0m  [["id", 10]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Destroy (0.2ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = ?[0m  [["id", 11]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Load (0.6ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Destroy (0.4ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.7ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "1 + 1"], ["option1", "1"], ["option2", "2"], ["option3", "3"], ["answer_key", "1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:52:10.709956"], ["updated_at", "2020-03-24 02:52:10.709956"]]
+  [1m[35m (3.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "4 + 1"], ["option1", "1"], ["option2", "5"], ["option3", "3"], ["answer_key", "5"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:52:10.722227"], ["updated_at", "2020-03-24 02:52:10.722227"]]
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "13 - 14"], ["option1", "1"], ["option2", "2"], ["option3", "-1"], ["answer_key", "-1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:52:10.727070"], ["updated_at", "2020-03-24 02:52:10.727070"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "-1 - 18"], ["option1", "-17"], ["option2", "-19"], ["option3", "19"], ["answer_key", "-19"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:52:10.730519"], ["updated_at", "2020-03-24 02:52:10.730519"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "3.14 + 0.0015"], ["option1", "3.1415"], ["option2", "2"], ["option3", "3"], ["answer_key", "3.1415"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:52:10.733887"], ["updated_at", "2020-03-24 02:52:10.733887"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "999 + -9999"], ["option1", "9999"], ["option2", "-9000"], ["option3", "3"], ["answer_key", "-9000"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:52:10.737241"], ["updated_at", "2020-03-24 02:52:10.737241"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "-0.123456789 + -0.123456789"], ["option1", "-0.246913578"], ["option2", "0"], ["option3", "0.8676309"], ["answer_key", "-0.246913578"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:52:10.740589"], ["updated_at", "2020-03-24 02:52:10.740589"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "13 + 18 + 20 - 100 + 19"], ["option1", "30"], ["option2", "27"], ["option3", "-30"], ["answer_key", "-30"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:52:10.743856"], ["updated_at", "2020-03-24 02:52:10.743856"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "14 - 15 + 11.3 - 3.11 + 19"], ["option1", "26.19"], ["option2", "27"], ["option3", "-26.13"], ["answer_key", "26.19"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:52:10.747141"], ["updated_at", "2020-03-24 02:52:10.747141"]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "0.1 + -15 + 11.3 + 3.11 + 19"], ["option1", "26.19"], ["option2", "18.51"], ["option3", "-26.13"], ["answer_key", "18.51"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:52:10.750196"], ["updated_at", "2020-03-24 02:52:10.750196"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Raven"], ["created_at", "2020-03-24 02:52:10.753549"], ["updated_at", "2020-03-24 02:52:10.753549"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Robert"], ["created_at", "2020-03-24 02:52:10.759243"], ["updated_at", "2020-03-24 02:52:10.759243"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Celeste"], ["created_at", "2020-03-24 02:52:10.770774"], ["updated_at", "2020-03-24 02:52:10.770774"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Mother of Dragons"], ["created_at", "2020-03-24 02:52:10.774337"], ["updated_at", "2020-03-24 02:52:10.774337"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "John 'I Know Nothing' Sow"], ["created_at", "2020-03-24 02:52:10.777491"], ["updated_at", "2020-03-24 02:52:10.777491"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Puck"], ["created_at", "2020-03-24 02:52:10.780763"], ["updated_at", "2020-03-24 02:52:10.780763"]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Oberon"], ["created_at", "2020-03-24 02:52:10.783440"], ["updated_at", "2020-03-24 02:52:10.783440"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "questions"[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "text" varchar, "option1" varchar, "option2" varchar, "option3" varchar, "answer_key" varchar, "difficulty" boolean, "review" boolean, "user_answer" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "test_results"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "test_results" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "session_id" integer, "test_score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_questions"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "user_questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "question_id" integer, "session" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200323210145)[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200323204109),
+(20200323204337),
+(20200323204728);
+
+[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-03-24 02:53:21.968076"], ["updated_at", "2020-03-24 02:53:21.968076"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "d5e408ee00d3bd58a5e8c1dba552f92a75feafc1"], ["created_at", "2020-03-24 02:53:21.987485"], ["updated_at", "2020-03-24 02:53:21.987485"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "questions"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "text" varchar, "option1" varchar, "option2" varchar, "option3" varchar, "answer_key" varchar, "difficulty" boolean, "review" boolean, "user_answer" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "test_results"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "test_results" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "session_id" integer, "test_score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_questions"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "user_questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "question_id" integer, "session" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200323210145)[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200323204109),
+(20200323204337),
+(20200323204728);
+
+[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-03-24 02:53:22.009251"], ["updated_at", "2020-03-24 02:53:22.009251"]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.2ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = ?, "updated_at" = ? WHERE "ar_internal_metadata"."key" = ?[0m  [["value", "test"], ["updated_at", "2020-03-24 02:53:22.013610"], ["key", "environment"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "d5e408ee00d3bd58a5e8c1dba552f92a75feafc1"], ["created_at", "2020-03-24 02:53:22.018320"], ["updated_at", "2020-03-24 02:53:22.018320"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Load (0.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "1 + 1"], ["option1", "1"], ["option2", "2"], ["option3", "3"], ["answer_key", "1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:53:22.043209"], ["updated_at", "2020-03-24 02:53:22.043209"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "4 + 1"], ["option1", "1"], ["option2", "5"], ["option3", "3"], ["answer_key", "5"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:53:22.046582"], ["updated_at", "2020-03-24 02:53:22.046582"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "13 - 14"], ["option1", "1"], ["option2", "2"], ["option3", "-1"], ["answer_key", "-1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:53:22.050006"], ["updated_at", "2020-03-24 02:53:22.050006"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "-1 - 18"], ["option1", "-17"], ["option2", "-19"], ["option3", "19"], ["answer_key", "-19"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:53:22.053132"], ["updated_at", "2020-03-24 02:53:22.053132"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "3.14 + 0.0015"], ["option1", "3.1415"], ["option2", "2"], ["option3", "3"], ["answer_key", "3.1415"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:53:22.056356"], ["updated_at", "2020-03-24 02:53:22.056356"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "999 + -9999"], ["option1", "9999"], ["option2", "-9000"], ["option3", "3"], ["answer_key", "-9000"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:53:22.059538"], ["updated_at", "2020-03-24 02:53:22.059538"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "-0.123456789 + -0.123456789"], ["option1", "-0.246913578"], ["option2", "0"], ["option3", "0.8676309"], ["answer_key", "-0.246913578"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:53:22.062735"], ["updated_at", "2020-03-24 02:53:22.062735"]]
+  [1m[35m (13.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "13 + 18 + 20 - 100 + 19"], ["option1", "30"], ["option2", "27"], ["option3", "-30"], ["answer_key", "-30"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:53:22.078860"], ["updated_at", "2020-03-24 02:53:22.078860"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "14 - 15 + 11.3 - 3.11 + 19"], ["option1", "26.19"], ["option2", "27"], ["option3", "-26.13"], ["answer_key", "26.19"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:53:22.081980"], ["updated_at", "2020-03-24 02:53:22.081980"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "0.1 + -15 + 11.3 + 3.11 + 19"], ["option1", "26.19"], ["option2", "18.51"], ["option3", "-26.13"], ["answer_key", "18.51"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:53:22.084946"], ["updated_at", "2020-03-24 02:53:22.084946"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Raven"], ["created_at", "2020-03-24 02:53:22.090200"], ["updated_at", "2020-03-24 02:53:22.090200"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Robert"], ["created_at", "2020-03-24 02:53:22.093157"], ["updated_at", "2020-03-24 02:53:22.093157"]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Celeste"], ["created_at", "2020-03-24 02:53:22.095816"], ["updated_at", "2020-03-24 02:53:22.095816"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Mother of Dragons"], ["created_at", "2020-03-24 02:53:22.098580"], ["updated_at", "2020-03-24 02:53:22.098580"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "John 'I Know Nothing' Sow"], ["created_at", "2020-03-24 02:53:22.101532"], ["updated_at", "2020-03-24 02:53:22.101532"]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Puck"], ["created_at", "2020-03-24 02:53:22.105565"], ["updated_at", "2020-03-24 02:53:22.105565"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Oberon"], ["created_at", "2020-03-24 02:53:22.108699"], ["updated_at", "2020-03-24 02:53:22.108699"]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mQuestion Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[36mQuestion Load (0.7ms)[0m  [1m[34mSELECT "questions".* FROM "questions" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mQuestion Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "questions"[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "text" varchar, "option1" varchar, "option2" varchar, "option3" varchar, "answer_key" varchar, "difficulty" boolean, "review" boolean, "user_answer" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "test_results"[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "test_results" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "session_id" integer, "test_score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_questions"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "user_questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "question_id" integer, "session" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200323210145)[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200323204109),
+(20200323204337),
+(20200323204728);
+
+[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-03-24 02:56:35.002578"], ["updated_at", "2020-03-24 02:56:35.002578"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "d5e408ee00d3bd58a5e8c1dba552f92a75feafc1"], ["created_at", "2020-03-24 02:56:35.019835"], ["updated_at", "2020-03-24 02:56:35.019835"]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "questions"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "text" varchar, "option1" varchar, "option2" varchar, "option3" varchar, "answer_key" varchar, "difficulty" boolean, "review" boolean, "user_answer" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "test_results"[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "test_results" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "session_id" integer, "test_score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_questions"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "user_questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "question_id" integer, "session" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200323210145)[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200323204109),
+(20200323204337),
+(20200323204728);
+
+[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-03-24 02:56:35.043380"], ["updated_at", "2020-03-24 02:56:35.043380"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.2ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = ?, "updated_at" = ? WHERE "ar_internal_metadata"."key" = ?[0m  [["value", "test"], ["updated_at", "2020-03-24 02:56:35.048103"], ["key", "environment"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "d5e408ee00d3bd58a5e8c1dba552f92a75feafc1"], ["created_at", "2020-03-24 02:56:35.052847"], ["updated_at", "2020-03-24 02:56:35.052847"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Load (0.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "1 + 1"], ["option1", "1"], ["option2", "2"], ["option3", "3"], ["answer_key", "1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:56:35.079520"], ["updated_at", "2020-03-24 02:56:35.079520"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "4 + 1"], ["option1", "1"], ["option2", "5"], ["option3", "3"], ["answer_key", "5"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:56:35.082788"], ["updated_at", "2020-03-24 02:56:35.082788"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "13 - 14"], ["option1", "1"], ["option2", "2"], ["option3", "-1"], ["answer_key", "-1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:56:35.085909"], ["updated_at", "2020-03-24 02:56:35.085909"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "-1 - 18"], ["option1", "-17"], ["option2", "-19"], ["option3", "19"], ["answer_key", "-19"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:56:35.088944"], ["updated_at", "2020-03-24 02:56:35.088944"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "3.14 + 0.0015"], ["option1", "3.1415"], ["option2", "2"], ["option3", "3"], ["answer_key", "3.1415"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:56:35.092217"], ["updated_at", "2020-03-24 02:56:35.092217"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "999 + -9999"], ["option1", "9999"], ["option2", "-9000"], ["option3", "3"], ["answer_key", "-9000"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:56:35.095520"], ["updated_at", "2020-03-24 02:56:35.095520"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "-0.123456789 + -0.123456789"], ["option1", "-0.246913578"], ["option2", "0"], ["option3", "0.8676309"], ["answer_key", "-0.246913578"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-24 02:56:35.098485"], ["updated_at", "2020-03-24 02:56:35.098485"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "13 + 18 + 20 - 100 + 19"], ["option1", "30"], ["option2", "27"], ["option3", "-30"], ["answer_key", "-30"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 02:56:35.113782"], ["updated_at", "2020-03-24 02:56:35.113782"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "14 - 15 + 11.3 - 3.11 + 19"], ["option1", "26.19"], ["option2", "27"], ["option3", "-26.13"], ["answer_key", "26.19"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-24 02:56:35.117372"], ["updated_at", "2020-03-24 02:56:35.117372"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.4ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "0.1 + -15 + 11.3 + 3.11 + 19"], ["option1", "26.19"], ["option2", "18.51"], ["option3", "-26.13"], ["answer_key", "18.51"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-24 02:56:35.120783"], ["updated_at", "2020-03-24 02:56:35.120783"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Raven"], ["created_at", "2020-03-24 02:56:35.127391"], ["updated_at", "2020-03-24 02:56:35.127391"]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Robert"], ["created_at", "2020-03-24 02:56:35.130371"], ["updated_at", "2020-03-24 02:56:35.130371"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Celeste"], ["created_at", "2020-03-24 02:56:35.133373"], ["updated_at", "2020-03-24 02:56:35.133373"]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Mother of Dragons"], ["created_at", "2020-03-24 02:56:35.136345"], ["updated_at", "2020-03-24 02:56:35.136345"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "John 'I Know Nothing' Sow"], ["created_at", "2020-03-24 02:56:35.140104"], ["updated_at", "2020-03-24 02:56:35.140104"]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Puck"], ["created_at", "2020-03-24 02:56:35.142989"], ["updated_at", "2020-03-24 02:56:35.142989"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Oberon"], ["created_at", "2020-03-24 02:56:35.145805"], ["updated_at", "2020-03-24 02:56:35.145805"]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[36mQuestion Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Load (0.5ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mQuestion Load (0.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT ?[0m  [["id", 0], ["LIMIT", 1]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT ?[0m  [["id", 0], ["LIMIT", 1]]
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "questions"[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "text" varchar, "option1" varchar, "option2" varchar, "option3" varchar, "answer_key" varchar, "difficulty" boolean, "review" boolean, "user_answer" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "test_results"[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "test_results" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "session_id" integer, "test_score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_questions"[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "user_questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "question_id" integer, "session" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200323210145)[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200323204109),
+(20200323204337),
+(20200323204728);
+
+[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-03-24 15:09:42.915420"], ["updated_at", "2020-03-24 15:09:42.915420"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "d5e408ee00d3bd58a5e8c1dba552f92a75feafc1"], ["created_at", "2020-03-24 15:09:42.936447"], ["updated_at", "2020-03-24 15:09:42.936447"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "questions"[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "text" varchar, "option1" varchar, "option2" varchar, "option3" varchar, "answer_key" varchar, "difficulty" boolean, "review" boolean, "user_answer" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "test_results"[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "test_results" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "session_id" integer, "test_score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_questions"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "user_questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "question_id" integer, "session" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200323210145)[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200323204109),
+(20200323204337),
+(20200323204728);
+
+[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-03-24 15:09:42.962420"], ["updated_at", "2020-03-24 15:09:42.962420"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.3ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = ?, "updated_at" = ? WHERE "ar_internal_metadata"."key" = ?[0m  [["value", "test"], ["updated_at", "2020-03-24 15:09:42.967423"], ["key", "environment"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "d5e408ee00d3bd58a5e8c1dba552f92a75feafc1"], ["created_at", "2020-03-24 15:09:42.972779"], ["updated_at", "2020-03-24 15:09:42.972779"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Load (0.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "1 + 1"], ["option1", "1"], ["option2", "2"], ["option3", "3"], ["answer_key", "1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 15:09:43.004167"], ["updated_at", "2020-03-24 15:09:43.004167"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "4 + 1"], ["option1", "1"], ["option2", "5"], ["option3", "3"], ["answer_key", "5"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 15:09:43.007906"], ["updated_at", "2020-03-24 15:09:43.007906"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "13 - 14"], ["option1", "1"], ["option2", "2"], ["option3", "-1"], ["answer_key", "-1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 15:09:43.011226"], ["updated_at", "2020-03-24 15:09:43.011226"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "-1 - 18"], ["option1", "-17"], ["option2", "-19"], ["option3", "19"], ["answer_key", "-19"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 15:09:43.014661"], ["updated_at", "2020-03-24 15:09:43.014661"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.4ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "3.14 + 0.0015"], ["option1", "3.1415"], ["option2", "2"], ["option3", "3"], ["answer_key", "3.1415"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 15:09:43.018528"], ["updated_at", "2020-03-24 15:09:43.018528"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "999 + -9999"], ["option1", "9999"], ["option2", "-9000"], ["option3", "3"], ["answer_key", "-9000"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-24 15:09:43.022448"], ["updated_at", "2020-03-24 15:09:43.022448"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "-0.123456789 + -0.123456789"], ["option1", "-0.246913578"], ["option2", "0"], ["option3", "0.8676309"], ["answer_key", "-0.246913578"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-24 15:09:43.025897"], ["updated_at", "2020-03-24 15:09:43.025897"]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "13 + 18 + 20 - 100 + 19"], ["option1", "30"], ["option2", "27"], ["option3", "-30"], ["answer_key", "-30"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-24 15:09:43.028941"], ["updated_at", "2020-03-24 15:09:43.028941"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "14 - 15 + 11.3 - 3.11 + 19"], ["option1", "26.19"], ["option2", "27"], ["option3", "-26.13"], ["answer_key", "26.19"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-24 15:09:43.032319"], ["updated_at", "2020-03-24 15:09:43.032319"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "0.1 + -15 + 11.3 + 3.11 + 19"], ["option1", "26.19"], ["option2", "18.51"], ["option3", "-26.13"], ["answer_key", "18.51"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-24 15:09:43.049692"], ["updated_at", "2020-03-24 15:09:43.049692"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "3 * 3 * 3"], ["option1", "9"], ["option2", "27"], ["option3", "6"], ["answer_key", "27"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-24 15:09:43.053821"], ["updated_at", "2020-03-24 15:09:43.053821"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "((3 * 3) + 3) / 3"], ["option1", "9"], ["option2", "3"], ["option3", "4"], ["answer_key", "4"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-24 15:09:43.058068"], ["updated_at", "2020-03-24 15:09:43.058068"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "cube root of 8"], ["option1", "9"], ["option2", "2"], ["option3", "4"], ["answer_key", "2"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-24 15:09:43.062108"], ["updated_at", "2020-03-24 15:09:43.062108"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "(3 + 4)(3 + 4)"], ["option1", "14"], ["option2", "25"], ["option3", "49"], ["answer_key", "49"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-24 15:09:43.065849"], ["updated_at", "2020-03-24 15:09:43.065849"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "(x + y)(x - y)"], ["option1", "x^2 - y^2"], ["option2", "x^2 +2xy + y^2"], ["option3", "-x^2+2xy -y^2"], ["answer_key", "x^2 - y^2"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-24 15:09:43.069567"], ["updated_at", "2020-03-24 15:09:43.069567"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Raven"], ["created_at", "2020-03-24 15:09:43.075722"], ["updated_at", "2020-03-24 15:09:43.075722"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Robert"], ["created_at", "2020-03-24 15:09:43.078926"], ["updated_at", "2020-03-24 15:09:43.078926"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Celeste"], ["created_at", "2020-03-24 15:09:43.082431"], ["updated_at", "2020-03-24 15:09:43.082431"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Mother of Dragons"], ["created_at", "2020-03-24 15:09:43.086033"], ["updated_at", "2020-03-24 15:09:43.086033"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "John 'I Know Nothing' Snow"], ["created_at", "2020-03-24 15:09:43.089701"], ["updated_at", "2020-03-24 15:09:43.089701"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Puck"], ["created_at", "2020-03-24 15:09:43.092895"], ["updated_at", "2020-03-24 15:09:43.092895"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Oberon"], ["created_at", "2020-03-24 15:09:43.096090"], ["updated_at", "2020-03-24 15:09:43.096090"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "questions"."id" FROM "questions"[0m
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions" ORDER BY "questions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.5ms)[0m  [1m[34mSELECT "questions".* FROM "questions" ORDER BY "questions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+DEPRECATION WARNING: SourceAnnotationExtractor is deprecated! Use Rails::SourceAnnotationExtractor instead. (called from <main> at /Users/jamesshipman/Development/code/mod3/MathMasters/bin/rails:9)
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions" ORDER BY "questions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" ORDER BY "questions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions" ORDER BY "questions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions" ORDER BY "questions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.9ms)[0m  [1m[34mSELECT "questions".* FROM "questions" ORDER BY "questions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" ORDER BY "questions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" ORDER BY "questions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.9ms)[0m  [1m[34mSELECT "questions".* FROM "questions" ORDER BY "questions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mQuestion Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
