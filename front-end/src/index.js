@@ -84,8 +84,8 @@ function renderUserProfile(user) {
   const resultsText = document.createElement('p');
   resultsText.innerText = 'Your test results and scores:';
   userResultDiv.append(resultsText);
-  // TODO: Display results function
-  // Option to retake certain test?
+  displayResults(user);
+  // TODO: Option to retake certain test?
 
   // Display Questions for Review
   const userReviewDiv = document.createElement('div');
@@ -94,4 +94,8 @@ function renderUserProfile(user) {
   reviewText.innerText = 'Your marked questions for review:';
   userReviewDiv.append(reviewText);
   // TODO: Display reviewed questions
+}
+
+function displayResults(user) {
+  console.log(user);
 }
