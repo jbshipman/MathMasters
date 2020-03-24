@@ -19,20 +19,22 @@ function userLogin(users) {
 
   // User Instructions
   const userInstructions = document.createElement('p');
-  userInstructions.innerText = "Select a user from the list below to login";
+  userInstructions.innerText = 'Select a user from the list below to login';
   mainDiv.append(userInstructions);
 
   // User List
   const userList = document.createElement('ul');
-
   mainDiv.append(userList);
   users.forEach((user) => {
     const userLi = document.createElement('li');
     userLi.innerText = user.name;
     userList.appendChild(userLi);
+    userLi.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log(`Clicked ${user.name} profile, id:${user.id}`);
+      renderUserProfile(user);
+    });
   });
-
-
 }
 
 function fetchUsers() {
