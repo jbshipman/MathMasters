@@ -18,8 +18,6 @@ function renderTestQuestions(data) {
   const easy = data.filter(filterEasyTests);
   const hard = data.filter(filterHardTests);
   
-  console.log(easy);
-
   /* create the div that will hold the ol */
   const testsDiv = document.createElement('div');
   testsDiv.setAttribute('id', 'test_questions_container');
@@ -54,9 +52,6 @@ function filterEasyTests(data) {
 function filterHardTests(data) {
   return data.difficulty == true;
 };
-
-
-
 
 function el(id) {
   return document.getElementById(id);
