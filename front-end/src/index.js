@@ -89,7 +89,7 @@ function renderUserProfile(user) {
   fetchTestResults(user);
   // TODO: Option to retake certain test?
 
-  // Create Questions for Review Elements
+  // Create Reviewed Questions Elements
   const userReviewDiv = document.createElement('div');
   mainDiv.append(userReviewDiv);
   const reviewText = document.createElement('p');
