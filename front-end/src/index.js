@@ -23,7 +23,7 @@ function renderTestQuestions(data) {
   /* create the div that will hold the ol */
   const testsDiv = document.createElement('div');
   testsDiv.setAttribute('id', 'test_questions_container');
-  testsDiv.innerText = 'Test questions will list within this div';
+  testsDiv.innerText = `Easy test has been selected`;
 
   /* create the ol */
   /* add to testsDiv */
