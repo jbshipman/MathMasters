@@ -186,8 +186,9 @@ function renderHardTestQuestions(data) {
 
 function filterEasyTests(data) {
   test = data.difficulty == false;
-  // console.log(test);
-  shuffle(test);
+  // console.log(data);
+  // return shuffle(data);
+  return test;
 };
 
 function filterHardTests(data) {
@@ -195,20 +196,10 @@ function filterHardTests(data) {
 };
 
 function shuffle(test) {
-  let currentIdx = test.length, tempValue, randomIdx;
-
-  while (0 !== currentIdx) {
-    randomIdx = Math.floor(Math.random() * currentIdx);
-    currentIdx -= 1;
-
-    tempValue = test[currentIdx];
-    test[currentIdx] = test[randomIdx];
-    test[randomIdx] = tempValue;
-  };
-
+  // shuffle given array of tests
+  console.log(test);
   return test;
 };
-
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
