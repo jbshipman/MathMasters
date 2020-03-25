@@ -207,6 +207,9 @@ function renderUserProfile(user) {
   reviewText.innerText = 'Your marked questions for review:';
   userReviewDiv.append(reviewText);
   fetchQuestions(user);
+
+  // Add Options for Editing at Bottom of Page
+  addOptions(user);
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -361,6 +364,47 @@ function displayReviewQuestions(questions) {
     reviewUl.appendChild(questionLi);
     reviewUl.append(questionText);
   });
+}
+
+// Add Options Div and Buttons
+function addOptions(user) {
+  const optionsDiv = document.createElement('div');
+
+  // Edit User Button
+  const editUserBtn = document.createElement('button');
+  editUserBtn.setAttribute('id', 'editUserBtn');
+  editUserBtn.setAttribute('type', 'button');
+  editUserBtn.setAttribute('class', 'btn btn-primary');
+  editUserBtn.innerText = 'Edit User';
+  editUserBtn.addEventListener('click',
+    (e) => {
+      e.preventDefault();
+      editUser();
+    });
+  optionsDiv.append(editUserBtn);
+
+  // Delete User Button
+  const deleteUserBtn = document.createElement('button');
+  deleteUserBtn.setAttribute('id', 'deleteUserBtn');
+  deleteUserBtn.setAttribute('type', 'button');
+  deleteUserBtn.setAttribute('class', 'btn btn-primary');
+  deleteUserBtn.innerText = 'Delete User';
+  deleteUserBtn.addEventListener('click',
+    (e) => {
+      e.preventDefault();
+      deleteUser();
+    });
+  optionsDiv.append(deleteUserBtn);
+
+  mainDiv.append(optionsDiv);
+}
+
+function editUser() {
+  console.log('hello');
+}
+
+function deleteUser() {
+  console.log('delete user');
 }
 
 function el(id) {
