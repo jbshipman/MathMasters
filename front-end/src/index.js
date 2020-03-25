@@ -69,21 +69,60 @@ function renderUserProfile(user) {
     e.preventDefault();
     console.log('Clicked easy test button');
     // TODO: Easy Test Function
-    getQuestions();
+    getEasyQuestions();
   });
     
+  // Test Button - Hard
+  const hardTest = document.createElement('button');
+  hardTest.innerText = 'Take Hard Test';
+  hardTest.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log('Clicked hard test button');
+    // TODO: Hard Test Function
+  });
+  profileDiv.append(easyTest);
+  profileDiv.append(hardTest);
+
+  // Create Test Results Elements
+  const userResultDiv = document.createElement('div');
+  userResultDiv.setAttribute('id', 'user-result-div');
+  mainDiv.append(userResultDiv);
+  const resultsText = document.createElement('p');
+  resultsText.innerText = 'Your test results and scores:';
+  userResultDiv.append(resultsText);
+  fetchTestResults(user);
+  // TODO: Option to retake certain test?
+
+  // Create Reviewed Questions Elements
+  const userReviewDiv = document.createElement('div');
+  userReviewDiv.setAttribute('id', 'user-review-div');
+  mainDiv.append(userReviewDiv);
+  const reviewText = document.createElement('p');
+  reviewText.innerText = 'Your marked questions for review:';
+  userReviewDiv.append(reviewText);
+  fetchQuestions(user);
+}
+
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  function getQuestions() {
+  function getEasyQuestions() {
     fetch(questionsURL)
+    // TODO: create a route and model logic for filtering and limiting test questions sent to the front
       .then(res => res.json())
       .then(data => renderTestQuestions(data))
-
   };
+
+  function getHardQuestions() {
+    fetch(questionsURL)
+    // TODO: create a route and model logic for filtering and limiting test questions sent to the front
+    .then(res => res.json())
+    .then(data => renderTestQuestions(data))
+  };
+
   function renderTestQuestions(data) {
 
-    const easy = data.filter(filterEasyTests);
+    const theTest = data.filter(filterEasyTests);
 
-    console.log(`renderTestQuestions function:\n`, easy);
+    // console.log(`renderTestQuestions function:\n`, easy);
     
     // // const hard = data.filter(filterHardTests);
     
@@ -122,39 +161,6 @@ function renderUserProfile(user) {
   };
   // ~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-
-  // Test Button - Hard
-  const hardTest = document.createElement('button');
-  hardTest.innerText = 'Take Hard Test';
-  hardTest.addEventListener('click', (e) => {
-    e.preventDefault();
-    console.log('Clicked hard test button');
-    // TODO: Hard Test Function
-  });
-  profileDiv.append(easyTest);
-  profileDiv.append(hardTest);
-
-  // Create Test Results Elements
-  const userResultDiv = document.createElement('div');
-  userResultDiv.setAttribute('id', 'user-result-div');
-  mainDiv.append(userResultDiv);
-  const resultsText = document.createElement('p');
-  resultsText.innerText = 'Your test results and scores:';
-  userResultDiv.append(resultsText);
-  fetchTestResults(user);
-  // TODO: Option to retake certain test?
-
-  // Create Reviewed Questions Elements
-  const userReviewDiv = document.createElement('div');
-  userReviewDiv.setAttribute('id', 'user-review-div');
-  mainDiv.append(userReviewDiv);
-  const reviewText = document.createElement('p');
-  reviewText.innerText = 'Your marked questions for review:';
-  userReviewDiv.append(reviewText);
-  fetchQuestions(user);
-}
 
 function fetchTestResults(user) {
   return fetch(testResultsURL)
