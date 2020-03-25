@@ -20,18 +20,39 @@ function userLogin(users) {
   mainDiv.innerHTML = '';
 
   // Header
-  userHeader = document.createElement('h1');
+  const headerDiv = document.createElement('div');
+  headerDiv.setAttribute('class', 'jumbotron text-center');
+  const userHeader = document.createElement('h1');
   userHeader.innerText = 'Welcome to Mathmasters!';
-  mainDiv.append(userHeader);
+  headerDiv.append(userHeader);
+  mainDiv.append(headerDiv);
+
+  const container = document.createElement('div');
+  container.setAttribute('class', 'container');
 
   // User Instructions
+  const instructionsDiv = document.createElement('div');
+  // instructionsDiv.setAttribute('class', '');
   const userInstructions = document.createElement('p');
   userInstructions.innerText = 'Select a user from the list below to login';
-  mainDiv.append(userInstructions);
+  instructionsDiv.append(userInstructions);
+  container.append(userInstructions);
 
   // User List
+  const userDropdown = document.createElement('div');
+  userDropdown.setAttribute('class', 'dropdown');
+
+  const userDropBtn = document.createElement('div');
+  userDropBtn.setAttribute('class', 'btn btn-primary dropdown-toggle');
+  userDropBtn.setAttribute('type', 'button');
+  userDropBtn.setAttribute('data-toggle', 'dropdown');
+  userDropBtn.innerText = 'Users';
+
+  userDropdown.append(userDropBtn);
+
   const userList = document.createElement('ul');
-  mainDiv.append(userList);
+  userList.setAttribute('class', 'dropdown-menu');
+  userDropdown.append(userList);
   users.forEach((user) => {
     const userLi = document.createElement('li');
     userLi.innerText = user.name;
@@ -41,18 +62,20 @@ function userLogin(users) {
       renderUserProfile(user);
     });
   });
+  main.append(userDropdown);
 }
 
 // Display User Profile
 function renderUserProfile(user) {
-  console.log(`${user.name}, ${user.id}`);
-  const mainDiv = document.getElementById('main');
   mainDiv.innerHTML = '';
 
   // User Profile Header
-  userHeader = document.createElement('h2');
+  const headerDiv = document.createElement('div');
+  headerDiv.setAttribute('class', 'jumbotron text-center');
+  const userHeader = document.createElement('h2');
   userHeader.innerText = `Nice to see you again, ${user.name}!`;
-  mainDiv.append(userHeader);
+  headerDiv.append(userHeader);
+  mainDiv.append(headerDiv);
 
   // Take New Test
   newTestInstructions = document.createElement('p');
