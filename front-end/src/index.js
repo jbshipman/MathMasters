@@ -369,6 +369,7 @@ function displayReviewQuestions(questions) {
 // Add Options Div and Buttons
 function addOptions(user) {
   const optionsDiv = document.createElement('div');
+  optionsDiv.setAttribute('id', 'optionsdiv')
 
   // Edit User Button
   const editUserBtn = document.createElement('button');
@@ -379,7 +380,7 @@ function addOptions(user) {
   editUserBtn.addEventListener('click',
     (e) => {
       e.preventDefault();
-      editUser();
+      editUser(user);
     });
   optionsDiv.append(editUserBtn);
 
@@ -392,15 +393,34 @@ function addOptions(user) {
   deleteUserBtn.addEventListener('click',
     (e) => {
       e.preventDefault();
-      deleteUser();
+      deleteUser(user);
     });
   optionsDiv.append(deleteUserBtn);
 
   mainDiv.append(optionsDiv);
 }
 
-function editUser() {
-  console.log('hello');
+// Adds div, Text Area, and Button to Submit New Username
+function editUser(user) {
+  const editDiv = document.createElement('div');
+  mainDiv.append(editDiv);
+
+  const editBox = document.createElement('textarea');
+  const confirmEditBtn = document.createElement('button');
+  confirmEditBtn.setAttribute('type', 'button');
+  confirmEditBtn.setAttribute('class', 'btn btn-primary');
+  confirmEditBtn.innerText = 'Confirm New Username';
+  editDiv.append(editBox);
+  editDiv.append(confirmEditBtn);
+
+  confirmEditBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    updateUser(user);
+  });
+}
+
+function updateUser(user) {
+  console.log(user);
 }
 
 function deleteUser() {
