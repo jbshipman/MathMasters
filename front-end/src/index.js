@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-undef */
 // TODO: clear innerHTML of test display if there is a test displayed
 // TODO: randomly select 5 questions to display
 
@@ -24,14 +26,23 @@ function userLogin(users) {
   mainDiv.innerHTML = '';
 
   // Header
-  userHeader = document.createElement('h1');
+  const headerDiv = document.createElement('div');
+  headerDiv.setAttribute('class', 'jumbotron text-center');
+  const userHeader = document.createElement('h1');
   userHeader.innerText = 'Welcome to Mathmasters!';
-  mainDiv.append(userHeader);
+  headerDiv.append(userHeader);
+  mainDiv.append(headerDiv);
+
+  const container = document.createElement('div');
+  container.setAttribute('class', 'container');
 
   // User Instructions
+  const instructionsDiv = document.createElement('div');
+  // instructionsDiv.setAttribute('class', '');
   const userInstructions = document.createElement('p');
   userInstructions.innerText = 'Select a user from the list below to login';
-  mainDiv.append(userInstructions);
+  instructionsDiv.append(userInstructions);
+  container.append(userInstructions);
 
   // New User Login Box
   const newUserTextArea = document.createElement('textarea');
@@ -50,8 +61,20 @@ function userLogin(users) {
   mainDiv.append(submitBtn);
 
   // User List
+  const userDropdown = document.createElement('div');
+  userDropdown.setAttribute('class', 'dropdown');
+
+  const userDropBtn = document.createElement('div');
+  userDropBtn.setAttribute('class', 'btn btn-primary dropdown-toggle');
+  userDropBtn.setAttribute('type', 'button');
+  userDropBtn.setAttribute('data-toggle', 'dropdown');
+  userDropBtn.innerText = 'Users';
+
+  userDropdown.append(userDropBtn);
+
   const userList = document.createElement('ul');
-  mainDiv.append(userList);
+  userList.setAttribute('class', 'dropdown-menu');
+  userDropdown.append(userList);
   users.forEach((user) => {
     const userLi = document.createElement('li');
     userLi.innerText = user.name;
@@ -61,6 +84,7 @@ function userLogin(users) {
       renderUserProfile(user);
     });
   });
+  main.append(userDropdown);
 }
 
 // Create New User POST
@@ -92,25 +116,26 @@ function showNewUser() {
       userArray.push(json);
       const lastUser = userArray[0].slice(-1)[0];
       renderUserProfile(lastUser);
-      const userHeader = document.getElementById('userheader')
+      const userHeader = document.getElementById('userheader');
       userHeader.innerText = `Hello, ${lastUser.name}`;
     });
 }
 
 // Display User Profile
 function renderUserProfile(user) {
-  console.log(`${user.name}, ${user.id}`);
-  const mainDiv = el('main');
   const profileDiv = document.createElement('div');
   profileDiv.setAttribute('id', 'profile-header-container');
   mainDiv.innerHTML = '';
   mainDiv.append(profileDiv);
 
   // User Profile Header
-  userHeader = document.createElement('h2');
+  const headerDiv = document.createElement('div');
+  headerDiv.setAttribute('class', 'jumbotron text-center');
+  const userHeader = document.createElement('h2');
   userHeader.setAttribute('id', 'userheader');
   userHeader.innerText = `Nice to see you again, ${user.name}!`;
-  profileDiv.append(userHeader);
+  headerDiv.append(userHeader);
+  mainDiv.append(headerDiv);
 
   // Take New Test
   newTestInstructions = document.createElement('p');
@@ -122,7 +147,6 @@ function renderUserProfile(user) {
   easyTest.innerText = 'Take Easy Test';
   easyTest.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log('Clicked easy test button');
     getEasyQuestions();
   });
 
@@ -131,7 +155,6 @@ function renderUserProfile(user) {
   hardTest.innerText = 'Take Hard Test';
   hardTest.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log('Clicked hard test button');
     getHardQuestions();
   });
 
@@ -230,14 +253,14 @@ function renderHardTestQuestions(data) {
 }
 
 function filterEasyTests(data) {
-  test = data.difficulty == false;
+  test = data.difficulty === false;
   // console.log(data);
   // return shuffle(data);
   return test;
 }
 
 function filterHardTests(data) {
-  return data.difficulty == true;
+  return data.difficulty === true;
 }
 
 function shuffle(test) {
