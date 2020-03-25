@@ -4316,3 +4316,352 @@ Processing by QuestionsController#index as */*
 Completed 200 OK in 14ms (Views: 12.0ms | ActiveRecord: 1.4ms | Allocations: 3840)
 
 
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "questions"[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "text" varchar, "option1" varchar, "option2" varchar, "option3" varchar, "answer_key" varchar, "difficulty" boolean, "review" boolean, "user_answer" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "test_results"[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "test_results" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "session_id" integer, "test_score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_questions"[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "user_questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "question_id" integer, "session" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200323210145)[0m
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200323204109),
+(20200323204337),
+(20200323204728);
+
+[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-03-25 18:43:02.230348"], ["updated_at", "2020-03-25 18:43:02.230348"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "d5e408ee00d3bd58a5e8c1dba552f92a75feafc1"], ["created_at", "2020-03-25 18:43:02.242072"], ["updated_at", "2020-03-25 18:43:02.242072"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "questions"[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "text" varchar, "option1" varchar, "option2" varchar, "option3" varchar, "answer_key" varchar, "difficulty" boolean, "review" boolean, "user_answer" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "test_results"[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE "test_results" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "session_id" integer, "test_score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_questions"[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "user_questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "question_id" integer, "session" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200323210145)[0m
+  [1m[35m (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200323204109),
+(20200323204337),
+(20200323204728);
+
+[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-03-25 18:43:02.285016"], ["updated_at", "2020-03-25 18:43:02.285016"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.4ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = ?, "updated_at" = ? WHERE "ar_internal_metadata"."key" = ?[0m  [["value", "test"], ["updated_at", "2020-03-25 18:43:02.291575"], ["key", "environment"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "d5e408ee00d3bd58a5e8c1dba552f92a75feafc1"], ["created_at", "2020-03-25 18:43:02.301661"], ["updated_at", "2020-03-25 18:43:02.301661"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mQuestion Load (0.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "1 + 1"], ["option1", "1"], ["option2", "2"], ["option3", "3"], ["answer_key", "1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-25 18:43:02.347397"], ["updated_at", "2020-03-25 18:43:02.347397"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "4 + 1"], ["option1", "1"], ["option2", "5"], ["option3", "3"], ["answer_key", "5"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-25 18:43:02.351372"], ["updated_at", "2020-03-25 18:43:02.351372"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "13 - 14"], ["option1", "1"], ["option2", "2"], ["option3", "-1"], ["answer_key", "-1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-25 18:43:02.355298"], ["updated_at", "2020-03-25 18:43:02.355298"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "-1 - 18"], ["option1", "-17"], ["option2", "-19"], ["option3", "19"], ["answer_key", "-19"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-25 18:43:02.359114"], ["updated_at", "2020-03-25 18:43:02.359114"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "3.14 + 0.0015"], ["option1", "3.1415"], ["option2", "2"], ["option3", "3"], ["answer_key", "3.1415"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-25 18:43:02.362553"], ["updated_at", "2020-03-25 18:43:02.362553"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "999 + -9999"], ["option1", "9999"], ["option2", "-9000"], ["option3", "3"], ["answer_key", "-9000"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-25 18:43:02.365648"], ["updated_at", "2020-03-25 18:43:02.365648"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "18 + 56"], ["option1", "74"], ["option2", "2"], ["option3", "3"], ["answer_key", "74"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-25 18:43:02.368801"], ["updated_at", "2020-03-25 18:43:02.368801"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "29 - 18"], ["option1", "10"], ["option2", "11"], ["option3", "12"], ["answer_key", "11"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-25 18:43:02.372879"], ["updated_at", "2020-03-25 18:43:02.372879"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "3.14 + 1.68"], ["option1", "4.82"], ["option2", "4.81"], ["option3", "4.89"], ["answer_key", "4.82"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-25 18:43:02.376562"], ["updated_at", "2020-03-25 18:43:02.376562"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "19 + 19 + 39"], ["option1", "76"], ["option2", "77"], ["option3", "78"], ["answer_key", "77"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-25 18:43:02.380148"], ["updated_at", "2020-03-25 18:43:02.380148"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "2 + -3"], ["option1", "-1"], ["option2", "2"], ["option3", "3"], ["answer_key", "-1"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-25 18:43:02.383589"], ["updated_at", "2020-03-25 18:43:02.383589"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "76 + 18 -34 +72"], ["option1", "132"], ["option2", "123"], ["option3", "213"], ["answer_key", "132"], ["difficulty", 0], ["review", 0], ["created_at", "2020-03-25 18:43:02.387044"], ["updated_at", "2020-03-25 18:43:02.387044"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "-0.123456789 + -0.123456789"], ["option1", "-0.246913578"], ["option2", "0"], ["option3", "0.8676309"], ["answer_key", "-0.246913578"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-25 18:43:02.390628"], ["updated_at", "2020-03-25 18:43:02.390628"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "13 + 18 + 20 - 100 + 19"], ["option1", "30"], ["option2", "27"], ["option3", "-30"], ["answer_key", "-30"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-25 18:43:02.394603"], ["updated_at", "2020-03-25 18:43:02.394603"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "14 - 15 + 11.3 - 3.11 + 19"], ["option1", "26.19"], ["option2", "27"], ["option3", "-26.13"], ["answer_key", "26.19"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-25 18:43:02.410112"], ["updated_at", "2020-03-25 18:43:02.410112"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "0.1 + -15 + 11.3 + 3.11 + 19"], ["option1", "26.19"], ["option2", "18.51"], ["option3", "-26.13"], ["answer_key", "18.51"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-25 18:43:02.413472"], ["updated_at", "2020-03-25 18:43:02.413472"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "3 * 3 * 3"], ["option1", "9"], ["option2", "27"], ["option3", "6"], ["answer_key", "27"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-25 18:43:02.416995"], ["updated_at", "2020-03-25 18:43:02.416995"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "((3 * 3) + 3) / 3"], ["option1", "9"], ["option2", "3"], ["option3", "4"], ["answer_key", "4"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-25 18:43:02.420508"], ["updated_at", "2020-03-25 18:43:02.420508"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "cube root of 8"], ["option1", "9"], ["option2", "2"], ["option3", "4"], ["answer_key", "2"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-25 18:43:02.423985"], ["updated_at", "2020-03-25 18:43:02.423985"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "(3 + 4)(3 + 4)"], ["option1", "14"], ["option2", "25"], ["option3", "49"], ["answer_key", "49"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-25 18:43:02.427386"], ["updated_at", "2020-03-25 18:43:02.427386"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mQuestion Create (0.3ms)[0m  [1m[32mINSERT INTO "questions" ("text", "option1", "option2", "option3", "answer_key", "difficulty", "review", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["text", "(x + y)(x - y)"], ["option1", "x^2 - y^2"], ["option2", "x^2 +2xy + y^2"], ["option3", "-x^2+2xy -y^2"], ["answer_key", "x^2 - y^2"], ["difficulty", 1], ["review", 0], ["created_at", "2020-03-25 18:43:02.430757"], ["updated_at", "2020-03-25 18:43:02.430757"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Raven"], ["created_at", "2020-03-25 18:43:02.436335"], ["updated_at", "2020-03-25 18:43:02.436335"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Robert"], ["created_at", "2020-03-25 18:43:02.439628"], ["updated_at", "2020-03-25 18:43:02.439628"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Celeste"], ["created_at", "2020-03-25 18:43:02.443016"], ["updated_at", "2020-03-25 18:43:02.443016"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Mother of Dragons"], ["created_at", "2020-03-25 18:43:02.446900"], ["updated_at", "2020-03-25 18:43:02.446900"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "John 'I Know Nothing' Snow"], ["created_at", "2020-03-25 18:43:02.450340"], ["updated_at", "2020-03-25 18:43:02.450340"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Puck"], ["created_at", "2020-03-25 18:43:02.454069"], ["updated_at", "2020-03-25 18:43:02.454069"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Oberon"], ["created_at", "2020-03-25 18:43:02.458204"], ["updated_at", "2020-03-25 18:43:02.458204"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/users" for 127.0.0.1 at 2020-03-25 13:43:23 -0500
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 24ms (Views: 12.3ms | ActiveRecord: 0.7ms | Allocations: 6707)
+
+
+Started GET "/test_results" for 127.0.0.1 at 2020-03-25 13:43:30 -0500
+Started GET "/users/1/questions" for 127.0.0.1 at 2020-03-25 13:43:30 -0500
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by UsersController#user_questions as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:20:in `user_questions'
+Processing by TestResultsController#index as */*
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions" INNER JOIN "user_questions" ON "questions"."id" = "user_questions"."question_id" WHERE "user_questions"."user_id" = ?[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:21:in `user_questions'
+Completed 200 OK in 42ms (Views: 8.9ms | ActiveRecord: 1.3ms | Allocations: 9179)
+
+
+  [1m[36mTestResult Load (0.2ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+Completed 200 OK in 30ms (Views: 1.8ms | ActiveRecord: 0.5ms | Allocations: 8109)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:33 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 22ms (Views: 21.3ms | ActiveRecord: 0.3ms | Allocations: 11446)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:34 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 7ms (Views: 6.4ms | ActiveRecord: 0.3ms | Allocations: 5093)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:34 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 7ms (Views: 6.1ms | ActiveRecord: 0.2ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:35 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 7ms (Views: 6.2ms | ActiveRecord: 0.4ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:36 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 8ms (Views: 7.4ms | ActiveRecord: 0.3ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:37 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 7ms (Views: 5.6ms | ActiveRecord: 0.4ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:38 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 6ms (Views: 6.0ms | ActiveRecord: 0.2ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:39 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 8ms (Views: 7.5ms | ActiveRecord: 0.3ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:40 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 7ms (Views: 6.7ms | ActiveRecord: 0.3ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:42 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 7ms (Views: 6.8ms | ActiveRecord: 0.3ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:42 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 6ms (Views: 5.6ms | ActiveRecord: 0.2ms | Allocations: 5076)
+
+
+Started GET "/users" for 127.0.0.1 at 2020-03-25 13:43:44 -0500
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.2ms | Allocations: 1606)
+
+
+Started GET "/test_results" for 127.0.0.1 at 2020-03-25 13:43:51 -0500
+Processing by TestResultsController#index as */*
+  [1m[36mTestResult Load (0.2ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.2ms | Allocations: 755)
+
+
+Started GET "/users/5/questions" for 127.0.0.1 at 2020-03-25 13:43:51 -0500
+Processing by UsersController#user_questions as */*
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:20:in `user_questions'
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" INNER JOIN "user_questions" ON "questions"."id" = "user_questions"."question_id" WHERE "user_questions"."user_id" = ?[0m  [["user_id", 5]]
+  ↳ app/controllers/users_controller.rb:21:in `user_questions'
+Completed 200 OK in 5ms (Views: 2.4ms | ActiveRecord: 0.6ms | Allocations: 1570)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:53 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 8ms (Views: 7.1ms | ActiveRecord: 0.3ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:54 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.7ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 9ms (Views: 8.5ms | ActiveRecord: 0.7ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:55 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 6ms (Views: 5.9ms | ActiveRecord: 0.2ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:55 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 8ms (Views: 7.5ms | ActiveRecord: 0.4ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:55 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 20ms (Views: 19.1ms | ActiveRecord: 0.4ms | Allocations: 5079)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:56 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 6ms (Views: 5.9ms | ActiveRecord: 0.3ms | Allocations: 5076)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-25 13:43:56 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 7ms (Views: 6.0ms | ActiveRecord: 0.3ms | Allocations: 5076)
+
+
+Started GET "/users" for 127.0.0.1 at 2020-03-25 13:48:43 -0500
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.2ms | Allocations: 1593)
+
+
+Started GET "/users" for 127.0.0.1 at 2020-03-25 14:33:06 -0500
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 13ms (Views: 9.5ms | ActiveRecord: 0.9ms | Allocations: 1609)
+
+
