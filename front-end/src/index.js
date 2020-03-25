@@ -1,4 +1,3 @@
-// TODO: clear innerHTML of test display if there is a test displayed
 // TODO: randomly select 5 questions to display
 
 
@@ -97,7 +96,6 @@ function renderUserProfile(user) {
   /* create the div that will hold the ol */
   const testsDiv = document.createElement('div');
   testsDiv.setAttribute('id', 'test_questions_container');
-  // testsDiv.innerText = `Easy test has been selected`;
   mainDiv.append(testsDiv);
 
 
@@ -136,13 +134,10 @@ function getHardQuestions() {
 
 function renderEasyTestQuestions(data) {
 
-  const easy = data.filter(filterEasyTests);
-
-
-  // /* create the div that will hold the ol */
-  // const testsDiv = document.createElement('div');
-  // testsDiv.setAttribute('id', 'test_questions_container');
-  // testsDiv.innerText = `Easy test has been selected`;
+  // const easy = data.filter(filterEasyTests);
+  const easyShuffled = data.sort(() => Math.random() - 0.5);
+  const easy = easyShuffled.filter(filterEasyTests);
+  const easyLimited = easy.slice(0, 5);
 
   /* create the ol */
   /* add to testsDiv */
@@ -154,7 +149,7 @@ function renderEasyTestQuestions(data) {
 
   /* loop through data */
   /* to add questions to list */
-  easy.forEach(question => {
+  easyLimited.forEach(question => {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
@@ -165,7 +160,6 @@ function renderEasyTestQuestions(data) {
   /* append to the main div */
   if (!!el('test_questoins_list')) {
     el('test_questoins_list').innerHTML = '';
-    // console.log('div is present');
   };
   el('test_questions_container').append(testsOl);
 
@@ -173,14 +167,9 @@ function renderEasyTestQuestions(data) {
 
 function renderHardTestQuestions(data) {
 
-  const hard = data.filter(filterHardTests);
-
-  // el('test_questions_container').innerHTML = '';
-  
-  // /* create the div that will hold the ol */
-  // const testsDiv = document.createElement('div');
-  // testsDiv.setAttribute('id', 'test_questions_container');
-  // testsDiv.innerText = `Hard test has been selected`;
+  const hardShuffled = data.sort(() => Math.random() - 0.5);
+  const hard = hardShuffled.filter(filterHardTests);
+  const hardLimited = hard.slice(0, 5);
 
   /* create the ol */
   /* add to testsDiv */
@@ -191,7 +180,7 @@ function renderHardTestQuestions(data) {
 
   /* loop through data */
   /* to add questions to list */
-  hard.forEach(question => {
+  hardLimited.forEach(question => {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
@@ -202,7 +191,6 @@ function renderHardTestQuestions(data) {
   /* append to the main div */
   if (!!el('test_questoins_list')) {
     el('test_questoins_list').innerHTML = '';
-    // console.log('div is present');
   };
   el('test_questions_container').append(testsOl);
 
@@ -210,8 +198,7 @@ function renderHardTestQuestions(data) {
 
 function filterEasyTests(data) {
   test = data.difficulty == false;
-  // console.log(data);
-  // return shuffle(data);
+  // return limitTests(test);
   return test;
 };
 
@@ -220,9 +207,8 @@ function filterHardTests(data) {
   return test;
 };
 
-function shuffle(test) {
-  // shuffle given array of tests
-  console.log(test);
+function limitTests(test) {
+  test.slice(5);
   return test;
 };
 
