@@ -2,8 +2,6 @@
 // TODO: randomly select 5 questions to display
 
 
-
-
 const usersURL = 'http://127.0.0.1:3000/users';
 const questionsURL = 'http://127.0.0.1:3000/questions';
 const testResultsURL = 'http://127.0.0.1:3000/test_results';
@@ -35,6 +33,22 @@ function userLogin(users) {
   userInstructions.innerText = 'Select a user from the list below to login';
   mainDiv.append(userInstructions);
 
+  // New User Login Box
+  const newUserTextArea = document.createElement('textarea');
+  newUserTextArea.setAttribute('id', 'textarea');
+  mainDiv.append(newUserTextArea);
+
+  // Submit Button
+  const submitBtn = document.createElement('button');
+  submitBtn.innerText = 'Submit';
+  submitBtn.setAttribute('id', 'submitBtn');
+  submitBtn.addEventListener('click',
+    (e) => {
+      e.preventDefault();
+      createUser();
+    });
+  mainDiv.append(submitBtn);
+
   // User List
   const userList = document.createElement('ul');
   mainDiv.append(userList);
@@ -49,6 +63,40 @@ function userLogin(users) {
   });
 }
 
+// Create New User POST
+function createUser() {
+  const newUserTextArea = document.getElementById('textarea');
+  const newUser = {
+    method: 'POST',
+    headers:
+          {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': true,
+          },
+    body: JSON.stringify({
+      name: newUserTextArea.value,
+    }),
+  };
+  fetch('http://127.0.0.1:3000/users', newUser);
+  showNewUser();
+}
+
+// Displays Profile Page for New User
+function showNewUser() {
+  const userArray = [];
+  return fetch(usersURL)
+    .then((response) => response.json())
+    .then((json) => {
+      userArray.push(json);
+      const lastUser = userArray[0].slice(-1)[0];
+      renderUserProfile(lastUser);
+      const userHeader = document.getElementById('userheader')
+      userHeader.innerText = `Hello, ${lastUser.name}`;
+    });
+}
+
 // Display User Profile
 function renderUserProfile(user) {
   console.log(`${user.name}, ${user.id}`);
@@ -60,6 +108,7 @@ function renderUserProfile(user) {
 
   // User Profile Header
   userHeader = document.createElement('h2');
+  userHeader.setAttribute('id', 'userheader');
   userHeader.innerText = `Nice to see you again, ${user.name}!`;
   profileDiv.append(userHeader);
 
@@ -76,7 +125,7 @@ function renderUserProfile(user) {
     console.log('Clicked easy test button');
     getEasyQuestions();
   });
-    
+
   // Test Button - Hard
   const hardTest = document.createElement('button');
   hardTest.innerText = 'Take Hard Test';
@@ -112,24 +161,23 @@ function renderUserProfile(user) {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function getEasyQuestions() {
   fetch(questionsURL)
-    .then(res => res.json())
-    .then(data => renderEasyTestQuestions(data))
-};
+    .then((res) => res.json())
+    .then((data) => renderEasyTestQuestions(data));
+}
 
 function getHardQuestions() {
   fetch(questionsURL)
-  .then(res => res.json())
-  .then(data => renderHardTestQuestions(data))
-};
+    .then((res) => res.json())
+    .then((data) => renderHardTestQuestions(data));
+}
 
 function renderEasyTestQuestions(data) {
-
   const easy = data.filter(filterEasyTests);
-  
+
   /* create the div that will hold the ol */
   const testsDiv = document.createElement('div');
   testsDiv.setAttribute('id', 'test_questions_container');
-  testsDiv.innerText = `Easy test has been selected`;
+  testsDiv.innerText = 'Easy test has been selected';
 
   /* create the ol */
   /* add to testsDiv */
@@ -139,29 +187,27 @@ function renderEasyTestQuestions(data) {
 
   /* loop through data */
   /* to add questions to list */
-  easy.forEach(question => {
+  easy.forEach((question) => {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
     questionLi.innerText = question.text;
     testsOl.appendChild(questionLi);
   });
-  
+
   /* append to the main div */
   el('main').append(testsDiv);
-
-};
+}
 
 function renderHardTestQuestions(data) {
-
   const hard = data.filter(filterHardTests);
 
   // el('test_questions_container').innerHTML = '';
-  
+
   /* create the div that will hold the ol */
   const testsDiv = document.createElement('div');
   testsDiv.setAttribute('id', 'test_questions_container');
-  testsDiv.innerText = `Easy test has been selected`;
+  testsDiv.innerText = 'Easy test has been selected';
 
   /* create the ol */
   /* add to testsDiv */
@@ -171,35 +217,34 @@ function renderHardTestQuestions(data) {
 
   /* loop through data */
   /* to add questions to list */
-  hard.forEach(question => {
+  hard.forEach((question) => {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
     questionLi.innerText = question.text;
     testsOl.appendChild(questionLi);
   });
-  
+
   /* append to the main div */
   el('main').append(testsDiv);
-
-};
+}
 
 function filterEasyTests(data) {
   test = data.difficulty == false;
   // console.log(data);
   // return shuffle(data);
   return test;
-};
+}
 
 function filterHardTests(data) {
   return data.difficulty == true;
-};
+}
 
 function shuffle(test) {
   // shuffle given array of tests
   console.log(test);
   return test;
-};
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -268,4 +313,4 @@ function displayReviewQuestions(questions) {
 
 function el(id) {
   return document.getElementById(id);
-};
+}
