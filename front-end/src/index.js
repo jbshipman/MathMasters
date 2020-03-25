@@ -137,11 +137,7 @@ function showNewUser() {
 
 // Display User Profile
 function renderUserProfile(user) {
-  const profileDiv = document.createElement('div');
-  profileDiv.setAttribute('id', 'profile-header-container');
   mainDiv.innerHTML = '';
-  mainDiv.append(profileDiv);
-
   // User Profile Header
   const headerDiv = document.createElement('div');
   headerDiv.setAttribute('class', 'jumbotron text-center');
@@ -151,42 +147,52 @@ function renderUserProfile(user) {
   headerDiv.append(userHeader);
   mainDiv.append(headerDiv);
 
+  const testContainer = document.createElement('div');
+  testContainer.setAttribute('class', 'container');
+  mainDiv.append(testContainer);
+
+  const buttonGroup = document.createElement('div');
+  buttonGroup.setAttribute('class', 'btn-group');
+  testContainer.append(buttonGroup);
+
   // Take New Test
-  newTestInstructions = document.createElement('p');
+  const newTestInstructions = document.createElement('p');
   newTestInstructions.innerText = 'Would you like to take a new test?';
-  profileDiv.append(newTestInstructions);
+  testContainer.append(newTestInstructions);
 
   // Test Button - Easy
   const easyTest = document.createElement('button');
+  easyTest.setAttribute('type', 'button');
+  easyTest.setAttribute('class', 'btn btn-primary');
   easyTest.innerText = 'Take Easy Test';
   easyTest.addEventListener('click', (e) => {
     e.preventDefault();
     el('user-result-div').innerHTML = '';
-    el('user-review-div').innerHTML = '';
     console.log('Clicked easy test button');
     getEasyQuestions();
   });
 
   // Test Button - Hard
   const hardTest = document.createElement('button');
+  hardTest.setAttribute('type', 'button');
+  hardTest.setAttribute('class', 'btn btn-primary');
   hardTest.innerText = 'Take Hard Test';
   hardTest.addEventListener('click', (e) => {
     e.preventDefault();
     el('user-result-div').innerHTML = '';
-    el('user-review-div').innerHTML = '';
     console.log('Clicked hard test button');
     getHardQuestions();
   });
 
   // append buttons
-  profileDiv.append(easyTest);
-  profileDiv.append(hardTest);
+  buttonGroup.append(easyTest);
+  buttonGroup.append(hardTest);
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   /* create the div that will hold the ol */
   const testsDiv = document.createElement('div');
   testsDiv.setAttribute('id', 'test_questions_container');
-  mainDiv.append(testsDiv);
+  testContainer.append(testsDiv);
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // Create Test Results Elements
