@@ -1,6 +1,3 @@
-// TODO: randomly select 5 questions to display
-
-
 const usersURL = 'http://127.0.0.1:3000/users';
 const questionsURL = 'http://127.0.0.1:3000/questions';
 const testResultsURL = 'http://127.0.0.1:3000/test_results';
