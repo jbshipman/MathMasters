@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-undef */
 // TODO: randomly select 5 questions to display
 
 
@@ -206,7 +208,6 @@ function getHardQuestions() {
 }
 
 function renderEasyTestQuestions(data) {
-
   // const easy = data.filter(filterEasyTests);
   const easyShuffled = data.sort(() => Math.random() - 0.5);
   const easy = easyShuffled.filter(filterEasyTests);
@@ -222,7 +223,7 @@ function renderEasyTestQuestions(data) {
 
   /* loop through data */
   /* to add questions to list */
-  easyLimited.forEach(question => {
+  easyLimited.forEach((question) => {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
@@ -231,15 +232,13 @@ function renderEasyTestQuestions(data) {
   });
 
   /* append to the main div */
-  if (!!el('test_questoins_list')) {
+  if (el('test_questoins_list')) {
     el('test_questoins_list').innerHTML = '';
-  };
+  }
   el('test_questions_container').append(testsOl);
-
-};
+}
 
 function renderHardTestQuestions(data) {
-
   const hardShuffled = data.sort(() => Math.random() - 0.5);
   const hard = hardShuffled.filter(filterHardTests);
   const hardLimited = hard.slice(0, 5);
@@ -253,7 +252,7 @@ function renderHardTestQuestions(data) {
 
   /* loop through data */
   /* to add questions to list */
-  hardLimited.forEach(question => {
+  hardLimited.forEach((question) => {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
@@ -262,12 +261,11 @@ function renderHardTestQuestions(data) {
   });
 
   /* append to the main div */
-  if (!!el('test_questoins_list')) {
+  if (el('test_questoins_list')) {
     el('test_questoins_list').innerHTML = '';
-  };
+  }
   el('test_questions_container').append(testsOl);
-
-};
+}
 
 function filterEasyTests(data) {
   test = data.difficulty == false;
@@ -278,7 +276,7 @@ function filterEasyTests(data) {
 function filterHardTests(data) {
   test = data.difficulty == true;
   return test;
-};
+}
 
 function limitTests(test) {
   test.slice(5);
