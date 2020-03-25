@@ -93,11 +93,12 @@ function renderUserProfile(user) {
   profileDiv.append(easyTest);
   profileDiv.append(hardTest);
 
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   /* create the div that will hold the ol */
   const testsDiv = document.createElement('div');
   testsDiv.setAttribute('id', 'test_questions_container');
   mainDiv.append(testsDiv);
-
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // Create Test Results Elements
   const userResultDiv = document.createElement('div');
