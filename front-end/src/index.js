@@ -145,6 +145,7 @@ function renderUserProfile(user) {
     el('user-review-div').innerHTML = '';
     console.log('Clicked easy test button');
     getEasyQuestions();
+    // displayTestForm();
   });
 
   // Test Button - Hard
@@ -156,6 +157,7 @@ function renderUserProfile(user) {
     el('user-review-div').innerHTML = '';
     console.log('Clicked hard test button');
     getHardQuestions();
+    // displayTestForm();
   });
 
   // append buttons
@@ -213,7 +215,7 @@ function renderEasyTestQuestions(data) {
   /* add to testsDiv */
   const testsOl = document.createElement('ol');
   testsOl.setAttribute('id', 'test_questions_list');
-  el('test_questions_container').innerText = 'Easy test selected';
+  el('test_questions_container').innerText = 'Easy test selected, select a, b, c';
   el('test_questions_container').append(testsOl);
 
 
@@ -223,7 +225,14 @@ function renderEasyTestQuestions(data) {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
-    questionLi.innerText = question.text;
+    // questionLi.innerText = question.text;
+    questionLi.innerHTML = `${question.text}
+      <ul>
+        <li><button id="${question.id}-1">(A) ${question.option1}</button></li>
+        <li><button id="${question.id}-2">(B) ${question.option2}</button></li>
+        <li><button id="${question.id}-3">(C) ${question.option3}</button></li>
+      </ul>
+      Mark this question for review? <button id="${question.id}-review">yes</button>`;
     testsOl.appendChild(questionLi);
   });
 
@@ -245,7 +254,7 @@ function renderHardTestQuestions(data) {
   /* add to testsDiv */
   const testsOl = document.createElement('ol');
   testsOl.setAttribute('id', 'test_questions_list');
-  el('test_questions_container').innerText = 'Hard test selected';
+  el('test_questions_container').innerText = 'Hard test selected, select a, b, c';
   el('test_questions_container').append(testsOl);
 
   /* loop through data */
@@ -254,7 +263,14 @@ function renderHardTestQuestions(data) {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
-    questionLi.innerText = question.text;
+    // questionLi.innerText = question.text;
+    questionLi.innerHTML = `${question.text}
+      <ul>
+        <li><button id="${question.id}-1">(A) ${question.option1}</button></li>
+        <li><button id="${question.id}-2">(B) ${question.option2}</button></li>
+        <li><button id="${question.id}-3">(C) ${question.option3}</button></li>
+      </ul>
+      Mark this question for review? <button id="${question.id}-review">yes</button>`;
     testsOl.appendChild(questionLi);
   });
 
