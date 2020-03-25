@@ -40,25 +40,40 @@ function userLogin(users) {
   const instructionsDiv = document.createElement('div');
   // instructionsDiv.setAttribute('class', '');
   const userInstructions = document.createElement('p');
-  userInstructions.innerText = 'Select a user from the list below to login';
+  userInstructions.innerText = 'Create a new user or, select a user from the menu below to login';
   instructionsDiv.append(userInstructions);
   container.append(userInstructions);
+  mainDiv.append(container);
 
   // New User Login Box
-  const newUserTextArea = document.createElement('textarea');
-  newUserTextArea.setAttribute('id', 'textarea');
-  mainDiv.append(newUserTextArea);
+  const userForm = document.createElement('div');
+  userForm.setAttribute('class', 'form-group');
+
+  const userLabel = document.createElement('label');
+  userLabel.setAttribute('for', 'textarea');
+  userLabel.innerText = 'New User:';
+  userForm.append(userLabel);
+
+  const userInput = document.createElement('input');
+  userInput.setAttribute('type', 'text');
+  userInput.setAttribute('class', 'form-control');
+  userInput.setAttribute('id', 'textarea');
+  userForm.append(userInput);
+
+  container.append(userForm);
 
   // Submit Button
   const submitBtn = document.createElement('button');
-  submitBtn.innerText = 'Submit';
   submitBtn.setAttribute('id', 'submitBtn');
+  submitBtn.setAttribute('type', 'button');
+  submitBtn.setAttribute('class', 'btn btn-primary');
+  submitBtn.innerText = 'Submit';
   submitBtn.addEventListener('click',
     (e) => {
       e.preventDefault();
       createUser();
     });
-  mainDiv.append(submitBtn);
+  userForm.append(submitBtn);
 
   // User List
   const userDropdown = document.createElement('div');
@@ -84,7 +99,7 @@ function userLogin(users) {
       renderUserProfile(user);
     });
   });
-  main.append(userDropdown);
+  container.append(userDropdown);
 }
 
 // Create New User POST
