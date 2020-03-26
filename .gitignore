@@ -38,6 +38,8 @@ jspm_packages
 # Ignore all logfiles and tempfiles.
 /log/*
 /back-end/log/*.log
+/back-end/cache/*
+/back-end/cache/bootsnap-compile-cache/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep
