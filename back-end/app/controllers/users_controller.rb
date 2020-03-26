@@ -23,6 +23,10 @@ class UsersController < ApplicationController
         user.save!
     end
 
+    def destroy
+        user = User.find_by(id: params[:id]).destroy
+    end
+
     def user_questions
         user = User.find_by(id: params[:id])
         render json: user.questions

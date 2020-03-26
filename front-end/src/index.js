@@ -448,8 +448,23 @@ function updateUser(user) {
   fetchUsers();
 }
 
-function deleteUser() {
-  console.log('delete user');
+function deleteUser(user) {
+  const removeUser = {
+    method: 'DELETE',
+    headers:
+          {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': false,
+          },
+    body: JSON.stringify({
+      id: user.id,
+    }),
+  };
+  fetch(`http://127.0.0.1:3000/users/${user.id}`, removeUser);
+  // TODO - Fix user in list still displaying until hard refresh of browser window
+  fetchUsers();
 }
 
 function el(id) {
