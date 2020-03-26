@@ -494,8 +494,8 @@ function fetchAllQuestions() {
 
 // Displays List of Questions and Edit Buttons
 function displayQuestions(questions) {
-  questionsDiv = document.createElement('div');
-  questionDiv.setAttribute('id', 'questionsdiv')
+  const questionsDiv = document.createElement('div');
+  questionsDiv.setAttribute('id', 'questionsdiv');
   mainDiv.append(questionsDiv);
   questionUl = document.createElement('ul');
   questionsDiv.append(questionUl);
@@ -507,6 +507,7 @@ function displayQuestions(questions) {
     const editIndQuestion = document.createElement('button');
     editIndQuestion.setAttribute('id', 'editindquestion');
     editIndQuestion.innerText = 'Edit';
+    editIndQuestion.setAttribute('class', 'btn btn-primary');
     questionLi.append(editIndQuestion);
     editIndQuestion.addEventListener('click', (e) => {
       e.preventDefault();
