@@ -375,7 +375,7 @@ function displayReviewQuestions(questions) {
 // Add Options Div and Buttons
 function addOptions(user) {
   const optionsDiv = document.createElement('div');
-  optionsDiv.setAttribute('id', 'optionsdiv')
+  optionsDiv.setAttribute('id', 'optionsdiv');
 
   // Edit User Button
   const editUserBtn = document.createElement('button');
@@ -412,6 +412,7 @@ function editUser(user) {
   mainDiv.append(editDiv);
 
   const editBox = document.createElement('textarea');
+  editBox.setAttribute('id', 'usertextarea');
   const confirmEditBtn = document.createElement('button');
   confirmEditBtn.setAttribute('type', 'button');
   confirmEditBtn.setAttribute('class', 'btn btn-primary');
@@ -426,7 +427,22 @@ function editUser(user) {
 }
 
 function updateUser(user) {
-  console.log(user);
+  const usernameTextArea = document.getElementById('usertextarea');
+  const editUser = {
+    method: 'PATCH',
+    headers:
+          {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': false,
+          },
+    body: JSON.stringify({
+      id: user.id,
+      name: usernameTextArea.value,
+    }),
+  };
+  fetch(`http://127.0.0.1:3000/users/${user.id}`, editUser);
 }
 
 function deleteUser() {
