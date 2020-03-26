@@ -216,6 +216,7 @@ function renderUserProfile(user) {
 
   // Add Options for Editing at Bottom of Page
   addOptions(user);
+  editQuestion();
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -466,6 +467,60 @@ function deleteUser(user) {
   // TODO - Fix user in list still displaying until hard refresh of browser window
   fetchUsers();
 }
+
+// Creates Edit Questions Button in OptionsDiv
+function editQuestion() {
+  const optionsDiv = document.getElementById('optionsdiv');
+
+  const editQuestionsBtn = document.createElement('button');
+  editQuestionsBtn.setAttribute('type', 'button');
+  editQuestionsBtn.setAttribute('class', 'btn btn-primary');
+  editQuestionsBtn.innerText = 'Edit Questions';
+  optionsDiv.append(editQuestionsBtn);
+
+  editQuestionsBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    fetchAllQuestions();
+  });
+}
+
+function fetchAllQuestions() {
+  return fetch('http://127.0.0.1:3000/questions')
+    .then((response) => response.json())
+    .then((json) => {
+      displayQuestions(json);
+    });
+}
+
+// Displays List of Questions and Edit Buttons
+function displayQuestions(questions) {
+  questionsDiv = document.createElement('div');
+  questionDiv.setAttribute('id', 'questionsdiv')
+  mainDiv.append(questionsDiv);
+  questionUl = document.createElement('ul');
+  questionsDiv.append(questionUl);
+
+  questions.forEach((question) => {
+    const questionLi = document.createElement('li');
+    questionLi.innerHTML = `Question #${question.id} <br> ${question.text}`;
+    questionUl.appendChild(questionLi);
+    const editIndQuestion = document.createElement('button');
+    editIndQuestion.setAttribute('id', 'editindquestion');
+    editIndQuestion.innerText = 'Edit';
+    questionLi.append(editIndQuestion);
+    editIndQuestion.addEventListener('click', (e) => {
+      e.preventDefault();
+      // indQuestionEdit(question);
+    });
+  });
+}
+
+// function indQuestionEdit(question) {
+//   const questionsDiv = document.getElementById('questionsdiv');
+//   questionsDiv.innerHTML = '';
+
+// }
+
 
 function el(id) {
   return document.getElementById(id);
