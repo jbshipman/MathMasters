@@ -11,6 +11,22 @@ class UsersController < ApplicationController
         render json: user
     end
 
+    def create
+        name = params[:name]
+        user = User.create(name: name)
+    end
+
+    def update
+        user = User.find_by(id: params[:id])
+        name = params[:name]
+        user.name = name
+        user.save!
+    end
+
+    def destroy
+        user = User.find_by(id: params[:id]).destroy
+    end
+
     def user_questions
         user = User.find_by(id: params[:id])
         render json: user.questions
