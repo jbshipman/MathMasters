@@ -8,4 +8,9 @@ class TestResultsController < ApplicationController
         testresult = TestResult.find_by(id: params[:id])
         render json: testresult
     end
+
+    def create
+        user_id = params[:user_id]
+        test_score = params[:test_score]
+    end 
 end

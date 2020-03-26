@@ -1,6 +1,7 @@
 const usersURL = 'http://127.0.0.1:3000/users';
 const questionsURL = 'http://127.0.0.1:3000/questions';
 const testResultsURL = 'http://127.0.0.1:3000/test_results';
+// const questionUpdate = 'http://localhost:3000/questions/:id';
 const mainDiv = document.getElementById('main');
 const body = document.querySelector('body');
 
@@ -342,11 +343,18 @@ function reviewThisQuestion(questionID, value) {
   console.log(`question ${questionID} marked for review`, toReview);
   const answerEl = el(questionID);
   answerEl.setAttribute('style', 'background-color: #ffd54f');
-  
+   
   // update DOM with this question listed for review
-  // selectReviewQuestions(questionID);
 
   // send to POST directly
+  fetch(`http://127.0.0.1:3000/questions/${questionID}`, {
+    method: 'PATCH',
+    body: JSON.stringify({review: toReview}),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  });
 };
 
 function compareAnswer(value, selection, buttonID, questionID, questionText) {
@@ -386,7 +394,15 @@ function getTestScore(testResult) {
   console.log(testScore);
 
   //  POST testScore to user, testResults to questions
-
+  fetch(testResultsURL, {
+    method: 'POST',
+    body: JSON.stringify({test_score: testResult}),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  });
+  alert('test submitted');
   // clear DOM and display selectUserResults with past results
   
 };
