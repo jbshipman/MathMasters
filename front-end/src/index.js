@@ -271,24 +271,6 @@ function renderEasyTestQuestions(data) {
 
   /* submit button */
   buildSubmitButton();
-  // submitButton = document.createElement('button');
-  // submitButton.setAttribute('id', 'submit');
-  // submitButton.setAttribute('value', 'submit');
-  // submitButton.setAttribute('onclick', 'sendTest()');
-  // submitButton.innerText = 'Submit Test'
-  // el('test_questions_list').append(submitButton);
-  
-
-  // /*event listener for buttons */
-  // const buttons = document.querySelectorAll('.responsebuttons') 
-  // // const answerKey = data
-  // buttons.forEach((btn) => { 
-  //   btn.addEventListener("click", (event) => { 
-  //     console.log(`btn ${btn.id} clicked`);
-  //     // console.log(`selected ${btn.value}`);
-  //     // const answerChoice = btn.value;
-  //   }); 
-  // });
 
   /* append to the main div */
   if (!!el('test_questoins_list')) {
@@ -313,8 +295,6 @@ function renderHardTestQuestions(data) {
   /* loop through data */
   /* to add questions to list */
   hardLimited.forEach(question => {
-    // const theQuestion = question.text;
-    // console.log(theQuestion);
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
@@ -331,16 +311,6 @@ function renderHardTestQuestions(data) {
 
   /* submit button */
   buildSubmitButton();
-
-
-  // /*event listener for buttons */
-  // const buttons = document.querySelectorAll('.responsebuttons') 
-  // buttons.forEach((btn) => { 
-  //   btn.addEventListener("click", (event) => { 
-  //     console.log(`btn ${btn.id} clicked`);
-  //     // alert(event.target); 
-  //   }); 
-  // });
 
   /* append to the main div */
   if (!!el('test_questoins_list')) {
@@ -373,24 +343,15 @@ function compareAnswer(value, selection, buttonID, questionID, questionText) {
   console.log(`question text: ${questionText}`);
   
   const answerEl = el(questionID);
-  // const questionHeader = el(`question-header-${questionID}`);
-  // console.log(answerEl);
-  // console.log(questionHeader);
-
   if (value === selection) {
     console.log('CORRECT');
-    currentResult = 'correct';
-    testResult[`${questionID}`] = 'correct';
-    // result.push('correct');
-    // questionHeader.insertAdjacentText("beforeend", `${selection} is ${currentResult}`);
+    currentResult = 20;
+    testResult[`${questionID}`] = currentResult;
     answerEl.setAttribute('style', 'background-color: #4caf50');
   } else {
     console.log('WRONG');
-    currentResult = 'wrong';
-    testResult[`${questionID}`] = 'wrong';
-    // result.push('wrong');
-    // questionHeader.innerText = `${questionText} = ${selection} is ${result}`;
-    // questionHeader.insertAdjacentText("beforeend", `${selection} is ${currentResult}`);
+    currentResult = 0;
+    testResult[`${questionID}`] = currentResult;
     answerEl.setAttribute('style', 'background-color: #EF5353');
   };
   console.log(testResult);
@@ -401,16 +362,20 @@ function buildSubmitButton() {
   submitButton = document.createElement('button');
   submitButton.setAttribute('id', 'submit');
   submitButton.setAttribute('value', 'submit');
-  submitButton.setAttribute('onclick', 'sendTest(testResult)');
+  submitButton.setAttribute('onclick', 'getTestScore(testResult)');
   submitButton.innerText = 'Submit Test'
   el('test_questions_list').append(submitButton);
 };
 
-function sendTest(testResult) {
-  // console.log(testResult);
+function getTestScore(testResult) {
+  // reduces values of testResults for a test score
+  const testScore = Object.values(testResult).reduce((t, n) => t + n);
+  console.log(testScore);
 
+  //  POST testScore to user, testResults to questions
 
-  alert(`Test submitted`);
+  // clear DOM and display selectUserResults with past results
+  
 };
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
