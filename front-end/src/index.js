@@ -3,7 +3,7 @@ const questionsURL = 'http://127.0.0.1:3000/questions';
 const testResultsURL = 'http://127.0.0.1:3000/test_results';
 const mainDiv = document.getElementById('main');
 
-let result = {};
+let testResult = {};
 let currentResult;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -346,41 +346,44 @@ function compareAnswer(value, selection, buttonID, questionID, questionText) {
   console.log(`question text: ${questionText}`);
   
   const answerEl = el(questionID);
-  const questionHeader = el(`question-header-${questionID}`);
+  // const questionHeader = el(`question-header-${questionID}`);
   // console.log(answerEl);
   // console.log(questionHeader);
 
   if (value === selection) {
     console.log('CORRECT');
     currentResult = 'correct';
-    result[`${questionID}`] = 'correct';
+    testResult[`${questionID}`] = 'correct';
     // result.push('correct');
     // questionHeader.insertAdjacentText("beforeend", `${selection} is ${currentResult}`);
     answerEl.setAttribute('style', 'background-color: #4caf50');
   } else {
     console.log('WRONG');
     currentResult = 'wrong';
-    result[`${questionID}`] = 'wrong';
+    testResult[`${questionID}`] = 'wrong';
     // result.push('wrong');
     // questionHeader.innerText = `${questionText} = ${selection} is ${result}`;
     // questionHeader.insertAdjacentText("beforeend", `${selection} is ${currentResult}`);
     answerEl.setAttribute('style', 'background-color: #EF5353');
   };
-  console.log(result);
-  return result;
+  console.log(testResult);
+  return testResult;
 };
 
 function buildSubmitButton() {
   submitButton = document.createElement('button');
   submitButton.setAttribute('id', 'submit');
   submitButton.setAttribute('value', 'submit');
-  submitButton.setAttribute('onclick', 'sendTest()');
+  submitButton.setAttribute('onclick', 'sendTest(testResult)');
   submitButton.innerText = 'Submit Test'
   el('test_questions_list').append(submitButton);
 };
 
-function sendTest() {
-  alert('test sent');
+function sendTest(testResult) {
+  // console.log(testResult);
+
+
+  alert(`Test submitted`);
 };
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
