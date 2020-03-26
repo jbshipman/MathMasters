@@ -511,17 +511,114 @@ function displayQuestions(questions) {
     questionLi.append(editIndQuestion);
     editIndQuestion.addEventListener('click', (e) => {
       e.preventDefault();
-      // indQuestionEdit(question);
+      indQuestionEdit(question);
     });
   });
 }
 
-// function indQuestionEdit(question) {
-//   const questionsDiv = document.getElementById('questionsdiv');
-//   questionsDiv.innerHTML = '';
+function indQuestionEdit(question) {
+  const questionsDiv = document.getElementById('questionsdiv');
+  const questionOptionsDiv = document.createElement('div');
+  questionOptionsDiv.setAttribute('id', 'questionoptionsdiv');
+  const answerDiv = document.createElement('div');
+  answerDiv.setAttribute('id', 'answerdiv');
+  const buttonDiv = document.createElement('div');
+  buttonDiv.setAttribute('id', 'buttondiv');
+  questionsDiv.innerHTML = '';
 
-// }
+  // Question Text
+  const questionText = document.createElement('textarea');
+  questionText.setAttribute('id', 'questiontext');
+  questionText.innerHTML = question.text;
 
+  // Question Option 1
+  const questionOption1 = document.createElement('textarea');
+  questionOption1.setAttribute('id', 'questionoption1');
+  questionOption1.innerText = question.option1;
+
+  // Question Option 2
+  const questionOption2 = document.createElement('textarea');
+  questionOption2.setAttribute('id', 'questionoption2');
+  questionOption2.innerText = question.option2;
+
+  // Question Option 3
+  const questionOption3 = document.createElement('textarea');
+  questionOption3.setAttribute('id', 'questionoption3');
+  questionOption3.innerText = question.option3;
+
+  // Answer
+  const answer = document.createElement('textarea');
+  answer.setAttribute('id', 'answertextarea');
+  answer.innerText = question.answer_key;
+
+  // Edit Question Submit Button
+  const editQuestionBtn = document.createElement('button');
+  editQuestionBtn.setAttribute('id', 'editQuestionBtn');
+  editQuestionBtn.setAttribute('type', 'button');
+  editQuestionBtn.setAttribute('class', 'btn btn-primary');
+  editQuestionBtn.innerText = 'Submit Changes';
+  editQuestionBtn.addEventListener('click',
+    (e) => {
+      e.preventDefault();
+      changeQuestion(question);
+    });
+
+  // Adding elements to page
+  questionsDiv.innerHTML = 'Question Text: <br>';
+  questionsDiv.append(questionText);
+
+  mainDiv.append(questionOptionsDiv);
+  questionOptionsDiv.innerHTML = 'Options: <br>';
+  questionOptionsDiv.append(questionOption1);
+  questionOptionsDiv.append(questionOption2);
+  questionOptionsDiv.append(questionOption3);
+
+  mainDiv.append(answerDiv);
+  answerDiv.innerHTML = 'Answer: <br>';
+  answerDiv.append(answer);
+
+  mainDiv.append(buttonDiv);
+  buttonDiv.append(editQuestionBtn);
+
+  // TODO: Edit question difficulty and review status
+  // TODO: Add ability to delete question
+}
+
+function changeQuestion(question) {
+  const questionText = document.getElementById('questiontext');
+  const questionOption1 = document.getElementById('questionoption1');
+  const questionOption2 = document.getElementById('questionoption2');
+  const questionOption3 = document.getElementById('questionoption3');
+  const answerText = document.getElementById('answertextarea');
+  const editQ = {
+    method: 'PATCH',
+    headers:
+          {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': false,
+          },
+    body: JSON.stringify({
+      question: question.id,
+      text: questionText.value,
+      option1: questionOption1.value,
+      option2: questionOption2.value,
+      option3: questionOption3.value,
+      answer_key: answerText.value,
+    }),
+  };
+  fetch(`http://127.0.0.1:3000/questions/${question.id}`, editQ);
+  const questionsDiv = document.getElementById('questionsdiv');
+  questionsDiv.innerHTML = '';
+  const questionOptionsDiv = document.getElementById('questionoptionsdiv');
+  questionOptionsDiv.innerHTML = '';
+  const answerDiv = document.getElementById('answerdiv');
+  answerDiv.innerHTML = '';
+  const buttonDiv = document.getElementById('buttondiv');
+  buttonDiv.innerHTML = '';
+  fetchAllQuestions();
+}
 
 function el(id) {
   return document.getElementById(id);
