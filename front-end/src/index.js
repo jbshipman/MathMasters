@@ -426,6 +426,7 @@ function editUser(user) {
   });
 }
 
+// Function to send PATCH to update user in backend
 function updateUser(user) {
   const usernameTextArea = document.getElementById('usertextarea');
   const editUser = {
@@ -443,6 +444,8 @@ function updateUser(user) {
     }),
   };
   fetch(`http://127.0.0.1:3000/users/${user.id}`, editUser);
+  // TODO - Fix user in list not updating until hard refresh of browser window
+  fetchUsers();
 }
 
 function deleteUser() {
