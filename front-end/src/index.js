@@ -265,7 +265,7 @@ function renderEasyTestQuestions(data) {
       <li><button id="${question.id}-2" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option2}</button></li>
       <li><button id="${question.id}-3" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option3}</button></li>
     </ul>
-    Mark this question for review? <button id="${question.id}-review">yes</button>`;
+    Mark this question for review? <button id="${question.id}-review" value="'${question.review}'", onclick="reviewThisQuestion(${question.id}, this.value)">yes</button>`;
     testsOl.appendChild(questionLi);
   });
 
@@ -305,7 +305,7 @@ function renderHardTestQuestions(data) {
         <li><button id="${question.id}-2" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option2}</button></li>
         <li><button id="${question.id}-3" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option3}</button></li>
     </ul>
-      Mark this question for review? <button id="${question.id}-review">yes</button>`;
+    Mark this question for review? <button id="${question.id}-review" value="'${question.review}'", onclick="reviewThisQuestion(${question.id}, this.value)">yes</button>`;
     testsOl.appendChild(questionLi);
   });
 
@@ -334,6 +334,19 @@ function filterHardTests(data) {
 function limitTests(test) {
   test.slice(5);
   return test;
+};
+
+function reviewThisQuestion(questionID, value) {
+  let toReview = value;
+  toReview = true;
+  console.log(`question ${questionID} marked for review`, toReview);
+  const answerEl = el(questionID);
+  answerEl.setAttribute('style', 'background-color: #ffd54f');
+  
+  // update DOM with this question listed for review
+  // selectReviewQuestions(questionID);
+
+  // send to POST directly
 };
 
 function compareAnswer(value, selection, buttonID, questionID, questionText) {

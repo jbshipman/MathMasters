@@ -12,7 +12,7 @@ User.destroy_all
 
 # Questions
 questions = [
-  {text:'1 + 1', option1:'1', option2:'2', option3:'3', answer_key:'2', difficulty:0, review:0},
+  {text:'1 + 2', option1:'1', option2:'2', option3:'3', answer_key:'3', difficulty:0, review:0},
   {text:'4 + 1', option1:'1', option2:'5', option3:'3', answer_key:'5', difficulty:0, review:0},
   {text:'13 - 14', option1:'1', option2:'2', option3:'-1', answer_key:'-1', difficulty:0, review:0},
   {text:'-1 - 18', option1:'-17', option2:'-19', option3:'19', answer_key:'-19', difficulty:0, review:0},
