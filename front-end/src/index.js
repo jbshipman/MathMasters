@@ -3,8 +3,12 @@ const questionsURL = 'http://127.0.0.1:3000/questions';
 const testResultsURL = 'http://127.0.0.1:3000/test_results';
 const mainDiv = document.getElementById('main');
 
+let result = {};
+let currentResult;
+
 document.addEventListener('DOMContentLoaded', () => {
   fetchUsers();
+
 });
 
 function fetchUsers() {
@@ -215,33 +219,55 @@ function renderEasyTestQuestions(data) {
   /* add to testsDiv */
   const testsOl = document.createElement('ol');
   testsOl.setAttribute('id', 'test_questions_list');
-  el('test_questions_container').innerText = 'Easy test selected, select a, b, c';
+  el('test_questions_container').innerText = 'Easy test selected, select the answer';
   el('test_questions_container').append(testsOl);
 
 
   /* loop through data */
   /* to add questions to list */
   easyLimited.forEach(question => {
+    // const theQuestion = question.text;
+    // console.log(theQuestion);
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
     // questionLi.innerText = question.text;
-    questionLi.innerHTML = `${question.text}
-      <ul>
-        <li><button id="${question.id}-1">(A) ${question.option1}</button></li>
-        <li><button id="${question.id}-2">(B) ${question.option2}</button></li>
-        <li><button id="${question.id}-3">(C) ${question.option3}</button></li>
-      </ul>
-      Mark this question for review? <button id="${question.id}-review">yes</button>`;
+    questionLi.innerHTML = `<h4 id="question-header-${question.id}">${question.text} = </h4>
+    <ul>
+      <li><button id="${question.id}-1" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option1}</button></li>
+      <li><button id="${question.id}-2" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option2}</button></li>
+      <li><button id="${question.id}-3" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option3}</button></li>
+    </ul>
+    Mark this question for review? <button id="${question.id}-review">yes</button>`;
     testsOl.appendChild(questionLi);
   });
+
+  /* submit button */
+  buildSubmitButton();
+  // submitButton = document.createElement('button');
+  // submitButton.setAttribute('id', 'submit');
+  // submitButton.setAttribute('value', 'submit');
+  // submitButton.setAttribute('onclick', 'sendTest()');
+  // submitButton.innerText = 'Submit Test'
+  // el('test_questions_list').append(submitButton);
+  
+
+  // /*event listener for buttons */
+  // const buttons = document.querySelectorAll('.responsebuttons') 
+  // // const answerKey = data
+  // buttons.forEach((btn) => { 
+  //   btn.addEventListener("click", (event) => { 
+  //     console.log(`btn ${btn.id} clicked`);
+  //     // console.log(`selected ${btn.value}`);
+  //     // const answerChoice = btn.value;
+  //   }); 
+  // });
 
   /* append to the main div */
   if (!!el('test_questoins_list')) {
     el('test_questoins_list').innerHTML = '';
   };
   el('test_questions_container').append(testsOl);
-
 };
 
 function renderHardTestQuestions(data) {
@@ -260,19 +286,34 @@ function renderHardTestQuestions(data) {
   /* loop through data */
   /* to add questions to list */
   hardLimited.forEach(question => {
+    // const theQuestion = question.text;
+    // console.log(theQuestion);
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
     // questionLi.innerText = question.text;
-    questionLi.innerHTML = `${question.text}
+    questionLi.innerHTML = `<h4 id="question-header-${question.id}">${question.text} = </h4>
       <ul>
-        <li><button id="${question.id}-1">(A) ${question.option1}</button></li>
-        <li><button id="${question.id}-2">(B) ${question.option2}</button></li>
-        <li><button id="${question.id}-3">(C) ${question.option3}</button></li>
-      </ul>
+        <li><button id="${question.id}-1" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option1}</button></li>
+        <li><button id="${question.id}-2" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option2}</button></li>
+        <li><button id="${question.id}-3" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option3}</button></li>
+    </ul>
       Mark this question for review? <button id="${question.id}-review">yes</button>`;
     testsOl.appendChild(questionLi);
   });
+
+  /* submit button */
+  buildSubmitButton();
+
+
+  // /*event listener for buttons */
+  // const buttons = document.querySelectorAll('.responsebuttons') 
+  // buttons.forEach((btn) => { 
+  //   btn.addEventListener("click", (event) => { 
+  //     console.log(`btn ${btn.id} clicked`);
+  //     // alert(event.target); 
+  //   }); 
+  // });
 
   /* append to the main div */
   if (!!el('test_questoins_list')) {
@@ -296,7 +337,51 @@ function filterHardTests(data) {
 function limitTests(test) {
   test.slice(5);
   return test;
-}
+};
+
+function compareAnswer(value, selection, buttonID, questionID, questionText) {
+  console.log(`you selected: ${selection}`);
+  console.log(`the answer is: ${value}`);
+  console.log(`clicked button: ${buttonID}`);
+  console.log(`question text: ${questionText}`);
+  
+  const answerEl = el(questionID);
+  const questionHeader = el(`question-header-${questionID}`);
+  // console.log(answerEl);
+  // console.log(questionHeader);
+
+  if (value === selection) {
+    console.log('CORRECT');
+    currentResult = 'correct';
+    result[`${questionID}`] = 'correct';
+    // result.push('correct');
+    // questionHeader.insertAdjacentText("beforeend", `${selection} is ${currentResult}`);
+    answerEl.setAttribute('style', 'background-color: #4caf50');
+  } else {
+    console.log('WRONG');
+    currentResult = 'wrong';
+    result[`${questionID}`] = 'wrong';
+    // result.push('wrong');
+    // questionHeader.innerText = `${questionText} = ${selection} is ${result}`;
+    // questionHeader.insertAdjacentText("beforeend", `${selection} is ${currentResult}`);
+    answerEl.setAttribute('style', 'background-color: #EF5353');
+  };
+  console.log(result);
+  return result;
+};
+
+function buildSubmitButton() {
+  submitButton = document.createElement('button');
+  submitButton.setAttribute('id', 'submit');
+  submitButton.setAttribute('value', 'submit');
+  submitButton.setAttribute('onclick', 'sendTest()');
+  submitButton.innerText = 'Submit Test'
+  el('test_questions_list').append(submitButton);
+};
+
+function sendTest() {
+  alert('test sent');
+};
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
