@@ -37,6 +37,7 @@ jspm_packages
 
 # Ignore all logfiles and tempfiles.
 /log/*
+/back-end/log/*.log
 /tmp/*
 !/log/.keep
 !/tmp/.keep
