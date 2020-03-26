@@ -4,6 +4,9 @@ const testResultsURL = 'http://127.0.0.1:3000/test_results';
 const mainDiv = document.getElementById('main');
 const body = document.querySelector('body');
 
+let testResult = {};
+let currentResult;
+
 document.addEventListener('DOMContentLoaded', () => {
   fetchUsers();
 });
@@ -233,6 +236,7 @@ function getHardQuestions() {
 }
 
 function renderEasyTestQuestions(data) {
+
   // const easy = data.filter(filterEasyTests);
   const easyShuffled = data.sort(() => Math.random() - 0.5);
   const easy = easyShuffled.filter(filterEasyTests);
@@ -242,35 +246,41 @@ function renderEasyTestQuestions(data) {
   /* add to testsDiv */
   const testsOl = document.createElement('ol');
   testsOl.setAttribute('id', 'test_questions_list');
-  el('test_questions_container').innerText = 'Easy test selected, select a, b, c';
+  el('test_questions_container').innerText = 'Easy test selected, select the answer';
   el('test_questions_container').append(testsOl);
 
 
   /* loop through data */
   /* to add questions to list */
-  easyLimited.forEach((question) => {
+  easyLimited.forEach(question => {
+    // const theQuestion = question.text;
+    // console.log(theQuestion);
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
     // questionLi.innerText = question.text;
-    questionLi.innerHTML = `${question.text}
-      <ul>
-        <li><button id="${question.id}-1">(A) ${question.option1}</button></li>
-        <li><button id="${question.id}-2">(B) ${question.option2}</button></li>
-        <li><button id="${question.id}-3">(C) ${question.option3}</button></li>
-      </ul>
-      Mark this question for review? <button id="${question.id}-review">yes</button>`;
+    questionLi.innerHTML = `<h4 id="question-header-${question.id}">${question.text} = </h4>
+    <ul>
+      <li><button id="${question.id}-1" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option1}</button></li>
+      <li><button id="${question.id}-2" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option2}</button></li>
+      <li><button id="${question.id}-3" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option3}</button></li>
+    </ul>
+    Mark this question for review? <button id="${question.id}-review">yes</button>`;
     testsOl.appendChild(questionLi);
   });
 
+  /* submit button */
+  buildSubmitButton();
+
   /* append to the main div */
-  if (el('test_questoins_list')) {
+  if (!!el('test_questoins_list')) {
     el('test_questoins_list').innerHTML = '';
-  }
+  };
   el('test_questions_container').append(testsOl);
-}
+};
 
 function renderHardTestQuestions(data) {
+
   const hardShuffled = data.sort(() => Math.random() - 0.5);
   const hard = hardShuffled.filter(filterHardTests);
   const hardLimited = hard.slice(0, 5);
@@ -284,27 +294,31 @@ function renderHardTestQuestions(data) {
 
   /* loop through data */
   /* to add questions to list */
-  hardLimited.forEach((question) => {
+  hardLimited.forEach(question => {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
     // questionLi.innerText = question.text;
-    questionLi.innerHTML = `${question.text}
+    questionLi.innerHTML = `<h4 id="question-header-${question.id}">${question.text} = </h4>
       <ul>
-        <li><button id="${question.id}-1">(A) ${question.option1}</button></li>
-        <li><button id="${question.id}-2">(B) ${question.option2}</button></li>
-        <li><button id="${question.id}-3">(C) ${question.option3}</button></li>
-      </ul>
+        <li><button id="${question.id}-1" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option1}</button></li>
+        <li><button id="${question.id}-2" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option2}</button></li>
+        <li><button id="${question.id}-3" class="responsebuttons" value="${question.answer_key}" onclick="compareAnswer(this.value, this.innerText, this.id, ${question.id}, '${question.text}')">${question.option3}</button></li>
+    </ul>
       Mark this question for review? <button id="${question.id}-review">yes</button>`;
     testsOl.appendChild(questionLi);
   });
 
+  /* submit button */
+  buildSubmitButton();
+
   /* append to the main div */
-  if (el('test_questoins_list')) {
+  if (!!el('test_questoins_list')) {
     el('test_questoins_list').innerHTML = '';
-  }
+  };
   el('test_questions_container').append(testsOl);
-}
+
+};
 
 function filterEasyTests(data) {
   test = data.difficulty == false;
@@ -315,15 +329,56 @@ function filterEasyTests(data) {
 function filterHardTests(data) {
   test = data.difficulty == true;
   return test;
-}
+};
 
 function limitTests(test) {
   test.slice(5);
   return test;
-}
+};
+
+function compareAnswer(value, selection, buttonID, questionID, questionText) {
+  console.log(`you selected: ${selection}`);
+  console.log(`the answer is: ${value}`);
+  console.log(`clicked button: ${buttonID}`);
+  console.log(`question text: ${questionText}`);
+  
+  const answerEl = el(questionID);
+  if (value === selection) {
+    console.log('CORRECT');
+    currentResult = 20;
+    testResult[`${questionID}`] = currentResult;
+    answerEl.setAttribute('style', 'background-color: #4caf50');
+  } else {
+    console.log('WRONG');
+    currentResult = 0;
+    testResult[`${questionID}`] = currentResult;
+    answerEl.setAttribute('style', 'background-color: #EF5353');
+  };
+  console.log(testResult);
+  return testResult;
+};
+
+function buildSubmitButton() {
+  submitButton = document.createElement('button');
+  submitButton.setAttribute('id', 'submit');
+  submitButton.setAttribute('value', 'submit');
+  submitButton.setAttribute('onclick', 'getTestScore(testResult)');
+  submitButton.innerText = 'Submit Test'
+  el('test_questions_list').append(submitButton);
+};
+
+function getTestScore(testResult) {
+  // reduces values of testResults for a test score
+  const testScore = Object.values(testResult).reduce((t, n) => t + n);
+  console.log(testScore);
+
+  //  POST testScore to user, testResults to questions
+
+  // clear DOM and display selectUserResults with past results
+  
+};
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
-
 
 function fetchTestResults(user) {
   return fetch(testResultsURL)
