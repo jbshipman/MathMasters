@@ -1,12 +1,8 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-undef */
-// TODO: randomly select 5 questions to display
-
-
 const usersURL = 'http://127.0.0.1:3000/users';
 const questionsURL = 'http://127.0.0.1:3000/questions';
 const testResultsURL = 'http://127.0.0.1:3000/test_results';
 const mainDiv = document.getElementById('main');
+const body = document.querySelector('body');
 
 document.addEventListener('DOMContentLoaded', () => {
   fetchUsers();
@@ -151,14 +147,16 @@ function renderUserProfile(user) {
   testContainer.setAttribute('class', 'container');
   mainDiv.append(testContainer);
 
-  const buttonGroup = document.createElement('div');
-  buttonGroup.setAttribute('class', 'btn-group');
-  testContainer.append(buttonGroup);
+
 
   // Take New Test
   const newTestInstructions = document.createElement('p');
   newTestInstructions.innerText = 'Would you like to take a new test?';
   testContainer.append(newTestInstructions);
+
+  const buttonGroup = document.createElement('div');
+  buttonGroup.setAttribute('class', 'btn-group');
+  testContainer.append(buttonGroup);
 
   // Test Button - Easy
   const easyTest = document.createElement('button');
@@ -170,6 +168,7 @@ function renderUserProfile(user) {
     el('user-result-div').innerHTML = '';
     console.log('Clicked easy test button');
     getEasyQuestions();
+    // displayTestForm();
   });
 
   // Test Button - Hard
@@ -182,6 +181,7 @@ function renderUserProfile(user) {
     el('user-result-div').innerHTML = '';
     console.log('Clicked hard test button');
     getHardQuestions();
+    // displayTestForm();
   });
 
   // append buttons
@@ -198,7 +198,7 @@ function renderUserProfile(user) {
   // Create Test Results Elements
   const userResultDiv = document.createElement('div');
   userResultDiv.setAttribute('id', 'user-result-div');
-  mainDiv.append(userResultDiv);
+  testContainer.append(userResultDiv);
   const resultsText = document.createElement('p');
   resultsText.innerText = 'Your test results and scores:';
   userResultDiv.append(resultsText);
@@ -208,7 +208,7 @@ function renderUserProfile(user) {
   // Create Reviewed Questions Elements
   const userReviewDiv = document.createElement('div');
   userReviewDiv.setAttribute('id', 'user-review-div');
-  mainDiv.append(userReviewDiv);
+  testContainer.append(userReviewDiv);
   const reviewText = document.createElement('p');
   reviewText.innerText = 'Your marked questions for review:';
   userReviewDiv.append(reviewText);
@@ -242,7 +242,7 @@ function renderEasyTestQuestions(data) {
   /* add to testsDiv */
   const testsOl = document.createElement('ol');
   testsOl.setAttribute('id', 'test_questions_list');
-  el('test_questions_container').innerText = 'Easy test selected';
+  el('test_questions_container').innerText = 'Easy test selected, select a, b, c';
   el('test_questions_container').append(testsOl);
 
 
@@ -252,7 +252,14 @@ function renderEasyTestQuestions(data) {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
-    questionLi.innerText = question.text;
+    // questionLi.innerText = question.text;
+    questionLi.innerHTML = `${question.text}
+      <ul>
+        <li><button id="${question.id}-1">(A) ${question.option1}</button></li>
+        <li><button id="${question.id}-2">(B) ${question.option2}</button></li>
+        <li><button id="${question.id}-3">(C) ${question.option3}</button></li>
+      </ul>
+      Mark this question for review? <button id="${question.id}-review">yes</button>`;
     testsOl.appendChild(questionLi);
   });
 
@@ -272,7 +279,7 @@ function renderHardTestQuestions(data) {
   /* add to testsDiv */
   const testsOl = document.createElement('ol');
   testsOl.setAttribute('id', 'test_questions_list');
-  el('test_questions_container').innerText = 'Hard test selected';
+  el('test_questions_container').innerText = 'Hard test selected, select a, b, c';
   el('test_questions_container').append(testsOl);
 
   /* loop through data */
@@ -281,7 +288,14 @@ function renderHardTestQuestions(data) {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
-    questionLi.innerText = question.text;
+    // questionLi.innerText = question.text;
+    questionLi.innerHTML = `${question.text}
+      <ul>
+        <li><button id="${question.id}-1">(A) ${question.option1}</button></li>
+        <li><button id="${question.id}-2">(B) ${question.option2}</button></li>
+        <li><button id="${question.id}-3">(C) ${question.option3}</button></li>
+      </ul>
+      Mark this question for review? <button id="${question.id}-review">yes</button>`;
     testsOl.appendChild(questionLi);
   });
 
@@ -375,36 +389,57 @@ function displayReviewQuestions(questions) {
 
 // Add Options Div and Buttons
 function addOptions(user) {
-  const optionsDiv = document.createElement('div');
-  optionsDiv.setAttribute('id', 'optionsdiv');
+  const navBar = document.getElementById('navBar');
+  // options navigation bar
+  // const optionsNavBar = document.createElement('nav');
+  // optionsNavBar.setAttribute('class', 'navbar navbar-inverse navbar-fixed-top');
+  // navBarDiv.append(optionsNavBar);
+
+  const containerFluid = document.createElement('div');
+  containerFluid.setAttribute('class', 'container-fluid');
+  navBar.append(containerFluid);
+
+  const barheader = document.createElement('div');
+  barheader.setAttribute('class', 'navbar-header');
+  containerFluid.append(barheader);
+
+  const a = document.createElement('a');
+  a.setAttribute('class', 'navbar-brand');
+  // a.setAttribute('href', '#');
+  a.innerText = 'user options';
+  barheader.append(a);
+
+  // const navUl = document.createElement('ul');
+  // navUl.setAttribute('class', 'nav navbar-nav');
+  // containerFluid.append(navUl);
+
 
   // Edit User Button
   const editUserBtn = document.createElement('button');
   editUserBtn.setAttribute('id', 'editUserBtn');
   editUserBtn.setAttribute('type', 'button');
-  editUserBtn.setAttribute('class', 'btn btn-primary');
+  editUserBtn.setAttribute('class', 'btn btn-warning');
   editUserBtn.innerText = 'Edit User';
   editUserBtn.addEventListener('click',
     (e) => {
       e.preventDefault();
       editUser(user);
     });
-  optionsDiv.append(editUserBtn);
+  containerFluid.append(editUserBtn);
 
   // Delete User Button
   const deleteUserBtn = document.createElement('button');
   deleteUserBtn.setAttribute('id', 'deleteUserBtn');
   deleteUserBtn.setAttribute('type', 'button');
-  deleteUserBtn.setAttribute('class', 'btn btn-primary');
+  deleteUserBtn.setAttribute('class', 'btn btn-danger');
   deleteUserBtn.innerText = 'Delete User';
   deleteUserBtn.addEventListener('click',
     (e) => {
       e.preventDefault();
       deleteUser(user);
     });
-  optionsDiv.append(deleteUserBtn);
+  containerFluid.append(deleteUserBtn);
 
-  mainDiv.append(optionsDiv);
 }
 
 // Adds div, Text Area, and Button to Submit New Username
