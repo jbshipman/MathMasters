@@ -498,6 +498,7 @@ function displayReviewQuestions(questions) {
 // Add Options Div and Buttons
 function addOptions(user) {
   const navBar = document.getElementById('navBar');
+  navBar.innerHTML = '';
   // options navigation bar
   // const optionsNavBar = document.createElement('nav');
   // optionsNavBar.setAttribute('class', 'navbar navbar-inverse navbar-fixed-top');
@@ -517,11 +518,6 @@ function addOptions(user) {
   // a.setAttribute('href', '#');
   a.innerText = 'Options';
   barheader.append(a);
-
-  // const navUl = document.createElement('ul');
-  // navUl.setAttribute('class', 'nav navbar-nav');
-  // containerFluid.append(navUl);
-
 
   // Edit User Button
   const editUserBtn = document.createElement('button');
