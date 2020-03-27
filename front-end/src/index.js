@@ -99,6 +99,7 @@ function userLogin(users) {
     });
   });
   container.append(userDropdown);
+
 }
 
 // Create New User POST
@@ -393,19 +394,22 @@ function getTestScore(testResult) {
   const testScore = Object.values(testResult).reduce((t, n) => t + n);
   console.log(testScore);
 
+  postTestResult(testScore);
+};
   //  POST testScore to user, testResults to questions
+  function postTestResult(testScore) {
   fetch(testResultsURL, {
     method: 'POST',
-    body: JSON.stringify({test_score: testResult}),
+    body: JSON.stringify({test_score: testScore, user_id: 1}),
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     }
   });
   alert('test submitted');
+};
   // clear DOM and display selectUserResults with past results
   
-};
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
