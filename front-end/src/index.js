@@ -349,7 +349,7 @@ function reviewThisQuestion(questionID, value) {
   // update DOM with this question listed for review
 
   // send to POST directly
-  fetch(`http://127.0.0.1:3000/questions/${questionID}`, {
+  fetch(`http://127.0.0.1:3000/questions/post/${questionID}`, {
     method: 'PATCH',
     body: JSON.stringify({ review: toReview }),
     headers: {

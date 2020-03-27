@@ -26,4 +26,11 @@ def update
   question.save!
 end
 
+def mark_for_review
+  question = Question.find_by(id: params[:id])
+  review = params[:review]
+  question.review = review
+  question.save!
+end
+
 end
