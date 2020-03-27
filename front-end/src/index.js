@@ -444,14 +444,15 @@ function fetchTestResults(user) {
 // Selects Individual User Results from JSON Fetch
 function selectUserResults(user, results) {
   userResults = [];
-  results.forEach((result) => {
-    if (result.user_id === user.id) userResults.push(result);
-    displayResults(userResults);
-  });
+  for (i = 0; i < results.length; i++){
+    if (results[i].user_id === user.id) userResults.push(results[i]);
+  };
+  displayResults(userResults);
 }
 
 // Displays Individual User Test Results
 function displayResults(userResults) {
+  console.log(userResults);
   const testUl = document.createElement('ul');
   const userResultDiv = document.getElementById('user-result-div');
   userResultDiv.append(testUl);
