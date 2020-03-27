@@ -6,8 +6,9 @@ const mainDiv = document.getElementById('main');
 const body = document.querySelector('body');
 let userObj;
 let userID;
+let session = 1;
 
-let testResult = {};
+const testResult = {};
 let currentResult;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -101,7 +102,6 @@ function userLogin(users) {
     });
   });
   container.append(userDropdown);
-
 }
 
 // Create New User POST
@@ -156,7 +156,6 @@ function renderUserProfile(user) {
   const testContainer = document.createElement('div');
   testContainer.setAttribute('class', 'container');
   mainDiv.append(testContainer);
-
 
 
   // Take New Test
@@ -243,7 +242,6 @@ function getHardQuestions() {
 }
 
 function renderEasyTestQuestions(data) {
-
   // const easy = data.filter(filterEasyTests);
   const easyShuffled = data.sort(() => Math.random() - 0.5);
   const easy = easyShuffled.filter(filterEasyTests);
@@ -259,7 +257,7 @@ function renderEasyTestQuestions(data) {
 
   /* loop through data */
   /* to add questions to list */
-  easyLimited.forEach(question => {
+  easyLimited.forEach((question) => {
     // const theQuestion = question.text;
     // console.log(theQuestion);
     const questionLi = document.createElement('li');
@@ -280,14 +278,13 @@ function renderEasyTestQuestions(data) {
   buildSubmitButton();
 
   /* append to the main div */
-  if (!!el('test_questoins_list')) {
+  if (el('test_questoins_list')) {
     el('test_questoins_list').innerHTML = '';
-  };
+  }
   el('test_questions_container').append(testsOl);
-};
+}
 
 function renderHardTestQuestions(data) {
-
   const hardShuffled = data.sort(() => Math.random() - 0.5);
   const hard = hardShuffled.filter(filterHardTests);
   const hardLimited = hard.slice(0, 5);
@@ -301,7 +298,7 @@ function renderHardTestQuestions(data) {
 
   /* loop through data */
   /* to add questions to list */
-  hardLimited.forEach(question => {
+  hardLimited.forEach((question) => {
     const questionLi = document.createElement('li');
     questionLi.setAttribute('id', question.id);
     questionLi.setAttribute('class', 'list-group-item');
@@ -320,12 +317,11 @@ function renderHardTestQuestions(data) {
   buildSubmitButton();
 
   /* append to the main div */
-  if (!!el('test_questoins_list')) {
+  if (el('test_questoins_list')) {
     el('test_questoins_list').innerHTML = '';
-  };
+  }
   el('test_questions_container').append(testsOl);
-
-};
+}
 
 function filterEasyTests(data) {
   test = data.difficulty == false;
@@ -336,12 +332,12 @@ function filterEasyTests(data) {
 function filterHardTests(data) {
   test = data.difficulty == true;
   return test;
-};
+}
 
 function limitTests(test) {
   test.slice(5);
   return test;
-};
+}
 
 function reviewThisQuestion(questionID, value) {
   let toReview = value;
@@ -349,26 +345,26 @@ function reviewThisQuestion(questionID, value) {
   console.log(`question ${questionID} marked for review`, toReview);
   const answerEl = el(questionID);
   answerEl.setAttribute('style', 'background-color: #ffd54f');
-   
+
   // update DOM with this question listed for review
 
   // send to POST directly
   fetch(`http://127.0.0.1:3000/questions/${questionID}`, {
     method: 'PATCH',
-    body: JSON.stringify({review: toReview}),
+    body: JSON.stringify({ review: toReview }),
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
+      Accept: 'application/json',
+    },
   });
-};
+}
 
 function compareAnswer(value, selection, buttonID, questionID, questionText) {
   console.log(`you selected: ${selection}`);
   console.log(`the answer is: ${value}`);
   console.log(`clicked button: ${buttonID}`);
   console.log(`question text: ${questionText}`);
-  
+
   const answerEl = el(questionID);
   if (value === selection) {
     console.log('CORRECT');
@@ -380,19 +376,19 @@ function compareAnswer(value, selection, buttonID, questionID, questionText) {
     currentResult = 0;
     testResult[`${questionID}`] = currentResult;
     answerEl.setAttribute('style', 'background-color: #EF5353');
-  };
+  }
   console.log(testResult);
   return testResult;
-};
+}
 
 function buildSubmitButton() {
   submitButton = document.createElement('button');
   submitButton.setAttribute('id', 'submit');
   submitButton.setAttribute('value', 'submit');
   submitButton.setAttribute('onclick', 'getTestScore(testResult)');
-  submitButton.innerText = 'Submit Test'
+  submitButton.innerText = 'Submit Test';
   el('test_questions_list').append(submitButton);
-};
+}
 
 function getTestScore(testResult) {
   // reduces values of testResults for a test score
@@ -400,21 +396,40 @@ function getTestScore(testResult) {
   console.log(testScore);
 
   postTestResult(testScore);
-};
-  //  POST testScore to user, testResults to questions
-  function postTestResult(testScore) {
-  fetch(testResultsURL, {
+}
+//  POST testScore to user, testResults to questions
+function postTestResult(testScore) {
+  // fetch(testResultsURL, {
+  //   method: 'POST',
+  //   body: JSON.stringify({ test_score: testScore, user_id: userID }),
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     Accept: 'application/json',
+  //   },
+  // });
+  // alert('test submitted');
+  // renderUserProfile(userObj);
+
+  const postResults = {
     method: 'POST',
-    body: JSON.stringify({test_score: testScore, user_id: 1}),
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  });
-  alert('test submitted');
-};
-  // clear DOM and display selectUserResults with past results
-  
+    headers:
+          {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': true,
+          },
+    body: JSON.stringify({
+      test_score: testScore,
+      user_id: userID,
+      session_id: session + 1,
+    }),
+  };
+  fetch(testResultsURL, postResults);
+  renderUserProfile(userObj);
+}
+// clear DOM and display selectUserResults with past results
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -533,7 +548,6 @@ function addOptions(user) {
       deleteUser(user);
     });
   containerFluid.append(deleteUserBtn);
-
 }
 
 // Adds div, Text Area, and Button to Submit New Username

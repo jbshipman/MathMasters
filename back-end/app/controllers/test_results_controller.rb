@@ -12,5 +12,7 @@ class TestResultsController < ApplicationController
     def create
         user_id = params[:user_id]
         test_score = params[:test_score]
+        session = params[:session_id]
+        testresult = TestResult.create(user_id: user_id, test_score: test_score, session_id: session)
     end 
 end
