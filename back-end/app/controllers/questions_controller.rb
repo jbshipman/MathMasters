@@ -16,13 +16,11 @@ def update
   option2 = params[:option2]
   option3 = params[:option3]
   answer_key = params[:answer_key]
-  review = params[:review]
   question.text = text
   question.option1 = option1
   question.option2 = option2
   question.option3 = option3
   question.answer_key = answer_key
-  question.review = review
   question.save!
 end
 
