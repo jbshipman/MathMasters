@@ -452,6 +452,7 @@ function addOptions(user) {
 
   const containerFluid = document.createElement('div');
   containerFluid.setAttribute('class', 'container-fluid');
+  containerFluid.setAttribute('id', 'navContain');
   navBar.append(containerFluid);
 
   const barheader = document.createElement('div');
@@ -461,7 +462,7 @@ function addOptions(user) {
   const a = document.createElement('a');
   a.setAttribute('class', 'navbar-brand');
   // a.setAttribute('href', '#');
-  a.innerText = 'user options';
+  a.innerText = 'Options';
   barheader.append(a);
 
   // const navUl = document.createElement('ul');
@@ -560,13 +561,14 @@ function deleteUser(user) {
 
 // Creates Edit Questions Button in OptionsDiv
 function editQuestion() {
-  const optionsDiv = document.getElementById('optionsdiv');
+  // const optionsDiv = document.getElementById('optionsdiv');
+  const containerFluid = document.getElementById('navContain');
 
   const editQuestionsBtn = document.createElement('button');
   editQuestionsBtn.setAttribute('type', 'button');
-  editQuestionsBtn.setAttribute('class', 'btn btn-primary');
+  editQuestionsBtn.setAttribute('class', 'btn btn-success');
   editQuestionsBtn.innerText = 'Edit Questions';
-  optionsDiv.append(editQuestionsBtn);
+  containerFluid.append(editQuestionsBtn);
 
   editQuestionsBtn.addEventListener('click', (e) => {
     e.preventDefault();
