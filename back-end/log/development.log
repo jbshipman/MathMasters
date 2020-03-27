@@ -7328,3 +7328,183 @@ Processing by UsersController#user_questions as */*
 Completed 200 OK in 3ms (Views: 1.5ms | ActiveRecord: 0.3ms | Allocations: 1532)
 
 
+Started GET "/users" for 127.0.0.1 at 2020-03-27 11:11:05 -0500
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 27ms (Views: 19.8ms | ActiveRecord: 1.0ms | Allocations: 11245)
+
+
+Started GET "/test_results" for 127.0.0.1 at 2020-03-27 11:11:06 -0500
+Started GET "/users/17/questions" for 127.0.0.1 at 2020-03-27 11:11:06 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by UsersController#user_questions as */*
+  Parameters: {"id"=>"17"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 17], ["LIMIT", 1]]
+Processing by TestResultsController#index as */*
+  ↳ app/controllers/users_controller.rb:31:in `user_questions'
+  [1m[36mQuestion Load (0.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions" INNER JOIN "user_questions" ON "questions"."id" = "user_questions"."question_id" WHERE "user_questions"."user_id" = ?[0m  [["user_id", 17]]
+  ↳ app/controllers/users_controller.rb:32:in `user_questions'
+  [1m[36mTestResult Load (0.2ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+Completed 200 OK in 23ms (Views: 3.5ms | ActiveRecord: 0.8ms | Allocations: 10005)
+
+
+Completed 200 OK in 23ms (Views: 20.0ms | ActiveRecord: 0.5ms | Allocations: 13123)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-27 11:11:08 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 12ms (Views: 11.4ms | ActiveRecord: 0.2ms | Allocations: 10128)
+
+
+Started POST "/test_results" for 127.0.0.1 at 2020-03-27 11:11:16 -0500
+Processing by TestResultsController#create as JSON
+  Parameters: {"test_score"=>0, "user_id"=>17, "session_id"=>2, "test_result"=>{"user_id"=>17, "session_id"=>2, "test_score"=>0}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/users/17/questions" for 127.0.0.1 at 2020-03-27 11:11:16 -0500
+Started GET "/test_results" for 127.0.0.1 at 2020-03-27 11:11:16 -0500
+  ↳ app/controllers/test_results_controller.rb:16:in `create'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 17], ["LIMIT", 1]]
+  ↳ app/controllers/test_results_controller.rb:16:in `create'
+  [1m[36mTestResult Create (0.8ms)[0m  [1m[32mINSERT INTO "test_results" ("user_id", "session_id", "test_score", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 17], ["session_id", 2], ["test_score", 0.0], ["created_at", "2020-03-27 16:11:16.177488"], ["updated_at", "2020-03-27 16:11:16.177488"]]
+  ↳ app/controllers/test_results_controller.rb:16:in `create'
+Processing by UsersController#user_questions as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  Parameters: {"id"=>"17"}
+  ↳ app/controllers/test_results_controller.rb:16:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 17], ["LIMIT", 1]]
+Processing by TestResultsController#index as */*
+Completed 204 No Content in 12ms (ActiveRecord: 1.9ms | Allocations: 6366)
+
+
+  ↳ app/controllers/users_controller.rb:31:in `user_questions'
+  [1m[36mTestResult Load (0.1ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  [1m[36mQuestion Load (0.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions" INNER JOIN "user_questions" ON "questions"."id" = "user_questions"."question_id" WHERE "user_questions"."user_id" = ?[0m  [["user_id", 17]]
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+  ↳ app/controllers/users_controller.rb:32:in `user_questions'
+Completed 200 OK in 3ms (Views: 3.1ms | ActiveRecord: 0.1ms | Allocations: 2224)
+
+
+Completed 200 OK in 5ms (Views: 2.4ms | ActiveRecord: 0.2ms | Allocations: 2840)
+
+
+Started GET "/users" for 127.0.0.1 at 2020-03-27 11:13:13 -0500
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:5:in `index'
+Completed 200 OK in 4ms (Views: 4.1ms | ActiveRecord: 0.2ms | Allocations: 6084)
+
+
+Started GET "/test_results" for 127.0.0.1 at 2020-03-27 11:13:14 -0500
+Started GET "/users/17/questions" for 127.0.0.1 at 2020-03-27 11:13:14 -0500
+Processing by TestResultsController#index as */*
+  [1m[36mTestResult Load (0.1ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+Processing by UsersController#user_questions as */*
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+  Parameters: {"id"=>"17"}
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.1ms | Allocations: 1384)
+
+
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 17], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:31:in `user_questions'
+  [1m[36mQuestion Load (0.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions" INNER JOIN "user_questions" ON "questions"."id" = "user_questions"."question_id" WHERE "user_questions"."user_id" = ?[0m  [["user_id", 17]]
+  ↳ app/controllers/users_controller.rb:32:in `user_questions'
+Completed 200 OK in 3ms (Views: 1.4ms | ActiveRecord: 0.2ms | Allocations: 1743)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-27 11:13:16 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 3ms (Views: 3.2ms | ActiveRecord: 0.2ms | Allocations: 3834)
+
+
+Started POST "/test_results" for 127.0.0.1 at 2020-03-27 11:13:21 -0500
+Processing by TestResultsController#create as JSON
+  Parameters: {"test_score"=>20, "user_id"=>17, "session_id"=>2, "test_result"=>{"user_id"=>17, "session_id"=>2, "test_score"=>20}}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/test_results_controller.rb:16:in `create'
+Started GET "/test_results" for 127.0.0.1 at 2020-03-27 11:13:21 -0500
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 17], ["LIMIT", 1]]
+Started GET "/users/17/questions" for 127.0.0.1 at 2020-03-27 11:13:21 -0500
+  ↳ app/controllers/test_results_controller.rb:16:in `create'
+  [1m[36mTestResult Create (0.3ms)[0m  [1m[32mINSERT INTO "test_results" ("user_id", "session_id", "test_score", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 17], ["session_id", 2], ["test_score", 20.0], ["created_at", "2020-03-27 16:13:21.848065"], ["updated_at", "2020-03-27 16:13:21.848065"]]
+  ↳ app/controllers/test_results_controller.rb:16:in `create'
+Processing by TestResultsController#index as */*
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTestResult Load (0.2ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  ↳ app/controllers/test_results_controller.rb:16:in `create'
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+Completed 204 No Content in 10ms (ActiveRecord: 1.4ms | Allocations: 4959)
+
+
+Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.2ms | Allocations: 1948)
+
+
+Processing by UsersController#user_questions as */*
+  Parameters: {"id"=>"17"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 17], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:31:in `user_questions'
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions" INNER JOIN "user_questions" ON "questions"."id" = "user_questions"."question_id" WHERE "user_questions"."user_id" = ?[0m  [["user_id", 17]]
+  ↳ app/controllers/users_controller.rb:32:in `user_questions'
+Completed 200 OK in 3ms (Views: 1.2ms | ActiveRecord: 0.3ms | Allocations: 1605)
+
+
+Started GET "/questions" for 127.0.0.1 at 2020-03-27 11:13:29 -0500
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ app/controllers/questions_controller.rb:4:in `index'
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.2ms | Allocations: 3806)
+
+
+Started PATCH "/questions/3" for 127.0.0.1 at 2020-03-27 11:13:33 -0500
+Processing by QuestionsController#update as JSON
+  Parameters: {"review"=>true, "id"=>"3", "question"=>{"review"=>true}}
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/questions_controller.rb:13:in `update'
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/questions_controller.rb:26:in `update'
+  [1m[36mQuestion Update (0.3ms)[0m  [1m[33mUPDATE "questions" SET "text" = ?, "option1" = ?, "option2" = ?, "option3" = ?, "answer_key" = ?, "updated_at" = ? WHERE "questions"."id" = ?[0m  [["text", nil], ["option1", nil], ["option2", nil], ["option3", nil], ["answer_key", nil], ["updated_at", "2020-03-27 16:13:33.632489"], ["id", 3]]
+  ↳ app/controllers/questions_controller.rb:26:in `update'
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/questions_controller.rb:26:in `update'
+Completed 204 No Content in 5ms (ActiveRecord: 1.4ms | Allocations: 2919)
+
+
+Started POST "/test_results" for 127.0.0.1 at 2020-03-27 11:13:36 -0500
+Processing by TestResultsController#create as JSON
+  Parameters: {"test_score"=>60, "user_id"=>17, "session_id"=>2, "test_result"=>{"user_id"=>17, "session_id"=>2, "test_score"=>60}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/test_results" for 127.0.0.1 at 2020-03-27 11:13:36 -0500
+  ↳ app/controllers/test_results_controller.rb:16:in `create'
+Started GET "/users/17/questions" for 127.0.0.1 at 2020-03-27 11:13:36 -0500
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 17], ["LIMIT", 1]]
+  ↳ app/controllers/test_results_controller.rb:16:in `create'
+  [1m[36mTestResult Create (0.3ms)[0m  [1m[32mINSERT INTO "test_results" ("user_id", "session_id", "test_score", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 17], ["session_id", 2], ["test_score", 60.0], ["created_at", "2020-03-27 16:13:36.505770"], ["updated_at", "2020-03-27 16:13:36.505770"]]
+  ↳ app/controllers/test_results_controller.rb:16:in `create'
+Processing by TestResultsController#index as */*
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Processing by UsersController#user_questions as */*
+  [1m[36mTestResult Load (0.2ms)[0m  [1m[34mSELECT "test_results".* FROM "test_results"[0m
+  ↳ app/controllers/test_results_controller.rb:16:in `create'
+  Parameters: {"id"=>"17"}
+  ↳ app/controllers/test_results_controller.rb:4:in `index'
+Completed 204 No Content in 10ms (ActiveRecord: 1.4ms | Allocations: 5135)
+
+
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 17], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 2.9ms | ActiveRecord: 0.2ms | Allocations: 1857)
+
+
+  ↳ app/controllers/users_controller.rb:31:in `user_questions'
+  [1m[36mQuestion Load (0.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions" INNER JOIN "user_questions" ON "questions"."id" = "user_questions"."question_id" WHERE "user_questions"."user_id" = ?[0m  [["user_id", 17]]
+  ↳ app/controllers/users_controller.rb:32:in `user_questions'
+Completed 200 OK in 4ms (Views: 1.4ms | ActiveRecord: 0.2ms | Allocations: 2521)
+
+
