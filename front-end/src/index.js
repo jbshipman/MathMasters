@@ -464,7 +464,7 @@ function displayResults(userResults) {
 
 // Fetch Questions from UserQuestions for Individual User
 function fetchQuestions(user) {
-  return fetch(`http://127.0.0.1:3000/users/${user.id}/questions`)
+  return fetch(`http://127.0.0.1:3000/questions`)
     .then((response) => response.json())
     .then((json) => {
       selectReviewQuestions(json);
