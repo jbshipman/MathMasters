@@ -4,6 +4,8 @@ const testResultsURL = 'http://127.0.0.1:3000/test_results';
 // const questionUpdate = 'http://localhost:3000/questions/:id';
 const mainDiv = document.getElementById('main');
 const body = document.querySelector('body');
+let userObj;
+let userID;
 
 let testResult = {};
 let currentResult;
@@ -138,6 +140,9 @@ function showNewUser() {
 
 // Display User Profile
 function renderUserProfile(user) {
+  userObj = user;
+  userID = user.id;
+  console.log(userObj, userID);
   mainDiv.innerHTML = '';
   // User Profile Header
   const headerDiv = document.createElement('div');
